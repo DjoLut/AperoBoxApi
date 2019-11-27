@@ -11,22 +11,22 @@ namespace AperoBoxApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CommandeController : ControllerBase
+    public class LigneCommandeController : ControllerBase
     {
-        public CommandeController()
+        public LigneCommandeController()
         {
             ;
         }
 
         [HttpGet]
-        public IEnumerable<Commande> Get()
+        public IEnumerable<LigneCommande> Get()
         {
             using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
             {
-                var commandes = context.Commande
+                var ligneCommandes = context.LigneCommande
                     .ToList();
                     
-                return commandes;
+                return ligneCommandes;
             }
         }
 
