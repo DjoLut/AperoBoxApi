@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
+using AperoBoxApi.DTO;
 
 namespace AperoBoxApi.Controllers
 {
@@ -13,12 +14,16 @@ namespace AperoBoxApi.Controllers
     [Route("[controller]")]
     public class UtilisateurController : ControllerBase
     {
-        public UtilisateurController()
+        private AperoBoxApi_dbContext context;
+        //private UtilisateurDAO utilisateurDAO;
+        public UtilisateurController(AperoBoxApi_dbContext context)
         {
-            ;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            //this.utilisateurDAO = new UtilisateurDAO(context);
         }
 
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
         public IEnumerable<Utilisateur> Get()
         {
             //Afficher tout les utilisateurs

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using AperoBoxApi.Models;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace AperoBoxApi.Context
 {
@@ -27,11 +29,11 @@ namespace AperoBoxApi.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+            /*if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:aperoboxapidbserver.database.windows.net,1433;Initial Catalog=AperoBoxApi_db;Persist Security Info=False;User ID=etu32766;Password=aperoBOX123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            }
+                //optionsBuilder.UseSqlServer("Server=tcp:aperoboxapidbserver.database.windows.net,1433;Initial Catalog=AperoBoxApi_db;Persist Security Info=False;User ID=etu32766;Password=aperoBOX123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
