@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
+using AperoBoxApi.DTO;
+using AperoBoxApi.DAO;
+using AutoMapper;
 
 namespace AperoBoxApi.Controllers
 {
@@ -13,21 +16,26 @@ namespace AperoBoxApi.Controllers
     [Route("[controller]")]
     public class ProduitController : ControllerBase
     {
-        public ProduitController()
+        private AperoBoxApi_dbContext context;
+        private ProduitDAO produitDAO;
+        private readonly IMapper mapper;
+        public ProduitController(AperoBoxApi_dbContext context, IMapper mapper)
         {
-            ;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.produitDAO = new ProduitDAO(context);
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Produit> Get()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
+        public async Task<ActionResult<IEnumerable<Produit>>> getProduits()
         {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var produits = context.Produit
-                    .ToList();
-                    
-                return produits;
-            }
+            //Afficher des produits
+            List<Produit> produits = await produitDAO.getProduits();
+            if (produits == null)
+                return NotFound();
+
+            return Ok(mapper.Map<List<ProduitDTO>>(produits));
         }
 
 

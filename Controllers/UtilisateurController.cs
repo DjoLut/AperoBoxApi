@@ -28,7 +28,7 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
-        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateurs()
+        public async Task<ActionResult<IEnumerable<Utilisateur>>> getUtilisateurs()
         {
             //Afficher des utilisateurs
             List<Utilisateur> utilisateurs = await utilisateurDAO.getUtilisateurs();
@@ -36,7 +36,6 @@ namespace AperoBoxApi.Controllers
                 return NotFound();
 
             return Ok(mapper.Map<List<UtilisateurDTO>>(utilisateurs));
-
         }
 
 
