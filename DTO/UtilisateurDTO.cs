@@ -5,19 +5,19 @@ namespace AperoBoxApi.DTO
 {
     public partial class UtilisateurDTO
     {
-        public decimal id { get; set; }
+        public decimal Id { get; set; }
         [Required]
-        public string nom { get; set; }
+        public string Nom { get; set; }
         [Required]
-        public string prenom { get; set; }
-        public DateTime dateNaissance { get; set; }
+        public string Prenom { get; set; }
+        public DateTime DateNaissance { get; set; }
         [EmailAddress]
-        public string mail { get; set; }
-        public decimal? telephone { get; set; }
-        public decimal gsm { get; set; }
-        public string username { get; set; }
-        public string authorities { get; set; }
-        public string motDePasse { get; set; }
-        public int? adresse { get; set; }
+        public string Mail { get; set; }
+        public decimal? Telephone { get; set; }
+        public decimal Gsm { get; set; }
+        public string Username { get; set; }
+        public string Authorities { get; set; }
+        public string MotDePasse { get; set; }
+        public int? Adresse { get; set; }
     }
 }

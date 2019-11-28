@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Context;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 
 namespace AperoBoxApi
@@ -31,6 +32,16 @@ namespace AperoBoxApi
             services.AddDbContext<AperoBoxApi_dbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("Connection")));
             services.AddControllers();
+
+            //AutoMapper
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Infrastructure.MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +51,16 @@ namespace AperoBoxApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
             app.UseHttpsRedirection();
 

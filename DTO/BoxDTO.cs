@@ -4,14 +4,14 @@ namespace AperoBoxApi.DTO
 {
     public partial class BoxDTO
     {
-        public decimal id { get; set; }
-        public string nom { get; set; }
-        public decimal prixUnitaireHtva { get; set; }
-        public decimal tva { get; set; }
-        public decimal? promotion { get; set; }
-        public string description { get; set; }
-        public string photo { get; set; }
-        public byte affichable { get; set; }
-        public DateTime dateCreation { get; set; }
+        public decimal Id { get; set; }
+        public string Nom { get; set; }
+        public decimal PrixUnitaireHtva { get; set; }
+        public decimal Tva { get; set; }
+        public decimal? Promotion { get; set; }
+        public string Description { get; set; }
+        public string Photo { get; set; }
+        public byte Affichable { get; set; }
+        public DateTime DateCreation { get; set; }
     }
 }

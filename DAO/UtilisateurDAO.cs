@@ -29,7 +29,7 @@ namespace AperoBoxApi.DAO
             return utilisateur;
         }*/
 
-        public async Task<List<Utilisateur>> getUtilisateur(string email)
+        public async Task<List<Utilisateur>> getUtilisateurs()
         {
             return await context.Utilisateur.ToListAsync();
         }

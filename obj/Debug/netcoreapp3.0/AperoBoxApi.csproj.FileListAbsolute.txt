@@ -50,3 +50,5 @@ C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Debug\netco
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.csproj.CopyComplete
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.pdb
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\AutoMapper.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

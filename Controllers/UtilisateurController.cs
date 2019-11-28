@@ -7,52 +7,43 @@ using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
+using AperoBoxApi.DAO;
+using AutoMapper;
 
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UtilisateurController : ControllerBase
     {
         private AperoBoxApi_dbContext context;
-        //private UtilisateurDAO utilisateurDAO;
-        public UtilisateurController(AperoBoxApi_dbContext context)
+        private UtilisateurDAO utilisateurDAO;
+        private readonly IMapper mapper;
+        public UtilisateurController(AperoBoxApi_dbContext context, IMapper mapper)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
-            //this.utilisateurDAO = new UtilisateurDAO(context);
+            this.utilisateurDAO = new UtilisateurDAO(context);
+            this.mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
-        public IEnumerable<Utilisateur> Get()
+        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetUtilisateurs()
         {
-            //Afficher tout les utilisateurs
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var utilisateurs = context.Utilisateur
-                    .ToList();
-                    
-                return utilisateurs;
-            }
+            //Afficher des utilisateurs
+            List<Utilisateur> utilisateurs = await utilisateurDAO.getUtilisateurs();
+            if (utilisateurs == null)
+                return NotFound();
+
+            return Ok(mapper.Map<List<UtilisateurDTO>>(utilisateurs));
+
         }
 
 
         [HttpPost]
         public void Post([FromBody]Utilisateur utilisateur)
         {
-            /*var date = new DateTime(2010, 10, 10);
-            var newStudent = new Student{Birthdate = date, Fullname = "NewStudent", Remark = "testAjout"};
             
-            var newCourse = new Course{Description = "testNewCours"};
-
-            var newStudentCourse = new StudentCourse{Note = 20, Student = newStudent, Course = newCourse};
-
-            var context = new firstBdContext();
-            //context.Student.Add(newStudent);
-            //context.Course.Add(newCourse);
-            //context.StudentCourse.Add(newStudentCourse);
-            context.AddRange(newStudent, newCourse, newStudentCourse);
-            context.SaveChanges();*/
         }
     }
 }

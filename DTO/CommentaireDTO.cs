@@ -4,10 +4,10 @@ namespace AperoBoxApi.DTO
 {
     public partial class CommentaireDTO
     {
-        public decimal id { get; set; }
-        public decimal texte { get; set; }
-        public DateTime dateCreation { get; set; }
-        public decimal utilisateur { get; set; }
-        public decimal box { get; set; }
+        public decimal Id { get; set; }
+        public decimal Texte { get; set; }
+        public DateTime DateCreation { get; set; }
+        public decimal Utilisateur { get; set; }
+        public decimal Box { get; set; }
     }
 }
