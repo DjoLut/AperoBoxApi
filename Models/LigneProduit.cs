@@ -5,7 +5,7 @@ namespace AperoBoxApi.Models
 {
     public partial class LigneProduit
     {
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         public decimal? Quantite { get; set; }
         public decimal? Box { get; set; }
         public decimal? Produit { get; set; }

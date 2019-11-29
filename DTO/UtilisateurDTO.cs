@@ -5,7 +5,7 @@ namespace AperoBoxApi.DTO
 {
     public partial class UtilisateurDTO
     {
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         [Required]
         public string Nom { get; set; }
         [Required]

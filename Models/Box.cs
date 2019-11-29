@@ -12,7 +12,7 @@ namespace AperoBoxApi.Models
             LigneProduit = new HashSet<LigneProduit>();
         }
 
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         public string Nom { get; set; }
         public decimal PrixUnitaireHtva { get; set; }
         public decimal Tva { get; set; }

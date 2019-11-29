@@ -10,7 +10,7 @@ namespace AperoBoxApi.Models
             LigneCommande = new HashSet<LigneCommande>();
         }
 
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         public DateTime DateCreation { get; set; }
         public decimal Promotion { get; set; }
         public decimal Utilisateur { get; set; }

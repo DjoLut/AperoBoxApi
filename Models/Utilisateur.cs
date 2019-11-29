@@ -11,7 +11,7 @@ namespace AperoBoxApi.Models
             Commentaire = new HashSet<Commentaire>();
         }
 
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public DateTime DateNaissance { get; set; }

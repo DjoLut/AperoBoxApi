@@ -59,7 +59,8 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> modifUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
         {
-            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(utilisateurDTO.Id);
+            int id = Decimal.ToInt32(utilisateurDTO.Id);
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
 

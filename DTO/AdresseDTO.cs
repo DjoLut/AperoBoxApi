@@ -4,7 +4,7 @@ namespace AperoBoxApi.DTO
 {
     public partial class AdresseDTO
     {
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         public string Rue { get; set; }
         public string Numero { get; set; }
         public string Localite { get; set; }
