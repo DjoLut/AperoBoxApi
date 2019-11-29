@@ -10,31 +10,12 @@ using AperoBoxApi.Context;
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AdresseController : ControllerBase
     {
         public AdresseController()
         {
             ;
-        }
-
-        [HttpGet]
-        public IEnumerable<Adresse> Get()
-        {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var adresses = context.Adresse
-                    .ToList();
-                    
-                return adresses;
-            }
-        }
-
-
-        [HttpPost]
-        public void Post()
-        {
-            
         }
     }
 }

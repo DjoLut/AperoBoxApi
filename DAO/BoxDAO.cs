@@ -16,5 +16,10 @@ namespace AperoBoxApi.DAO
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
+
+        public async Task<List<Box>> getBoxes()
+        {
+            return await context.Box.ToListAsync();
+        }
     }
 }

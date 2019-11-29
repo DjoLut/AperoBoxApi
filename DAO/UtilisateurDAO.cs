@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
+using AperoBoxApi.DTO;
 
 namespace AperoBoxApi.DAO
 {
@@ -32,6 +33,35 @@ namespace AperoBoxApi.DAO
         public async Task<List<Utilisateur>> getUtilisateurs()
         {
             return await context.Utilisateur.ToListAsync();
+        }
+
+        public async Task<Utilisateur> GetUtilisateurById(int id)
+        {
+            return await context.Utilisateur
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task modifUtilisateur(Utilisateur utilisateur, UtilisateurDTO utilisateurDTO)
+        {
+            utilisateur.Id = utilisateurDTO.Id;
+            utilisateur.Nom = utilisateurDTO.Nom;
+            utilisateur.Prenom = utilisateurDTO.Prenom;
+            utilisateur.DateNaissance = utilisateurDTO.DateNaissance;
+            utilisateur.Mail = utilisateurDTO.Mail;
+            utilisateur.Telephone = utilisateurDTO.Telephone;
+            utilisateur.Gsm = utilisateurDTO.Gsm;
+            utilisateur.Username = utilisateurDTO.Username;
+            utilisateur.Authorities = utilisateurDTO.Authorities;
+            utilisateur.MotDePasse = utilisateurDTO.MotDePasse;
+            utilisateur.Adresse = utilisateurDTO.Adresse;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task suppressionUtilisateur(Utilisateur utilisateur)
+        {
+            context.Remove(utilisateur);
+            await context.SaveChangesAsync();
         }
 
     }

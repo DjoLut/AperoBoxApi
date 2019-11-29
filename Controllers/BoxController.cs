@@ -6,30 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
+using AperoBoxApi.DAO;
+using AperoBoxApi.DTO;
+using AutoMapper;
 
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BoxController : ControllerBase
     {
-        public BoxController()
+        private AperoBoxApi_dbContext context;
+        private BoxDAO boxDAO;
+        private readonly IMapper mapper;
+        public BoxController(AperoBoxApi_dbContext context, IMapper mapper)
         {
-            ;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.boxDAO = new BoxDAO(context);
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Box> Get()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
+        public async Task<ActionResult<IEnumerable<Box>>> getBoxes()
         {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var boxes = context.Box
-                    .ToList();
-                    
-                return boxes;
-            }
-        }
+            List<Box> boxes = await boxDAO.getBoxes();
+            if (boxes == null)
+                return NotFound();
 
+            return Ok(mapper.Map<List<BoxDTO>>(boxes));
+        }
 
         [HttpPost]
         public void Post()

@@ -11,7 +11,7 @@ namespace AperoBoxApi.Models
             Utilisateur = new HashSet<Utilisateur>();
         }
 
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         public string Rue { get; set; }
         public string Numero { get; set; }
         public string Localite { get; set; }

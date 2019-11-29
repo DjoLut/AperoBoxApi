@@ -10,31 +10,12 @@ using AperoBoxApi.Context;
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CommandeController : ControllerBase
     {
         public CommandeController()
         {
             ;
-        }
-
-        [HttpGet]
-        public IEnumerable<Commande> Get()
-        {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var commandes = context.Commande
-                    .ToList();
-                    
-                return commandes;
-            }
-        }
-
-
-        [HttpPost]
-        public void Post()
-        {
-            
         }
     }
 }

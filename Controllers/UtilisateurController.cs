@@ -30,7 +30,6 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> getUtilisateurs()
         {
-            //Afficher des utilisateurs
             List<Utilisateur> utilisateurs = await utilisateurDAO.getUtilisateurs();
             if (utilisateurs == null)
                 return NotFound();
@@ -38,11 +37,48 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<UtilisateurDTO>>(utilisateurs));
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
+        {
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
+            if(utilisateur == null)
+                return NotFound();
+            
+            return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
+        }
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public void Post([FromBody]Utilisateur utilisateur)
         {
             
         }
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        public async Task<ActionResult> modifUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
+        {
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(utilisateurDTO.Id);
+            if(utilisateur == null)
+                return NotFound();
+
+            await utilisateurDAO.modifUtilisateur(utilisateur, utilisateurDTO);
+
+            return Ok(utilisateur);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        public async Task<ActionResult> suppressionUtilisateur(int id) 
+        {
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
+            if(utilisateur == null)
+                return NotFound();
+            
+            await utilisateurDAO.suppressionUtilisateur(utilisateur);
+            return Ok();
+        }
+
     }
 }

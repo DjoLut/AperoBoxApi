@@ -6,30 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
+using AperoBoxApi.DAO;
+using AperoBoxApi.DTO;
+using AutoMapper;
 
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CommentaireController : ControllerBase
     {
-        public CommentaireController()
+        private AperoBoxApi_dbContext context;
+        private CommentaireDAO commentaireDAO;
+        private readonly IMapper mapper;
+        public CommentaireController(AperoBoxApi_dbContext context, IMapper mapper)
         {
-            ;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.commentaireDAO = new CommentaireDAO(context);
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Commentaire> Get()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        public async Task<ActionResult<IEnumerable<Commentaire>>> getCommentaires()
         {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var commentaires = context.Commentaire
-                    .ToList();
-                    
-                return commentaires;
-            }
-        }
+            List<Commentaire> commentaires = await commentaireDAO.getCommentaires();
+            if (commentaires == null)
+                return NotFound();
 
+            return Ok(mapper.Map<List<CommentaireDTO>>(commentaires));
+        }
 
         [HttpPost]
         public void Post()

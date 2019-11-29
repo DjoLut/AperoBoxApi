@@ -13,7 +13,7 @@ using AutoMapper;
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProduitController : ControllerBase
     {
         private AperoBoxApi_dbContext context;
@@ -30,14 +30,12 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
         public async Task<ActionResult<IEnumerable<Produit>>> getProduits()
         {
-            //Afficher des produits
             List<Produit> produits = await produitDAO.getProduits();
             if (produits == null)
                 return NotFound();
 
             return Ok(mapper.Map<List<ProduitDTO>>(produits));
         }
-
 
         [HttpPost]
         public void Post()

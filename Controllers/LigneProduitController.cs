@@ -10,31 +10,12 @@ using AperoBoxApi.Context;
 namespace AperoBoxApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LigneProduitController : ControllerBase
     {
         public LigneProduitController()
         {
             ;
-        }
-
-        [HttpGet]
-        public IEnumerable<LigneProduit> Get()
-        {
-            using (AperoBoxApi_dbContext context = new AperoBoxApi_dbContext())
-            {
-                var ligneProduits = context.LigneProduit
-                    .ToList();
-                    
-                return ligneProduits;
-            }
-        }
-
-
-        [HttpPost]
-        public void Post()
-        {
-            
         }
     }
 }

@@ -4,7 +4,7 @@ namespace AperoBoxApi.DTO
 {
     public partial class BoxDTO
     {
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
         public decimal PrixUnitaireHtva { get; set; }
         public decimal Tva { get; set; }

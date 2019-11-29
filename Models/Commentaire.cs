@@ -5,7 +5,7 @@ namespace AperoBoxApi.Models
 {
     public partial class Commentaire
     {
-        public decimal Id { get; set; }
+        public int Id { get; set; }
         public string Texte { get; set; }
         public DateTime DateCreation { get; set; }
         public decimal Utilisateur { get; set; }
