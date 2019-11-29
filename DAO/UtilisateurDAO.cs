@@ -35,7 +35,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur.ToListAsync();
         }
 
-        public async Task<Utilisateur> GetUtilisateurById(int id)
+        public async Task<Utilisateur> getUtilisateurById(int id)
         {
             return await context.Utilisateur
                 .FirstOrDefaultAsync(u => u.Id == id);

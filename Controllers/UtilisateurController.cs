@@ -41,7 +41,7 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
         {
-            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
+            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
             
@@ -60,7 +60,7 @@ namespace AperoBoxApi.Controllers
         public async Task<ActionResult> modifUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
         {
             int id = Decimal.ToInt32(utilisateurDTO.Id);
-            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
+            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
 
@@ -73,7 +73,7 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> suppressionUtilisateur(int id) 
         {
-            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
+            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
             

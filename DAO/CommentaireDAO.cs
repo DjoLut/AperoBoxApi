@@ -21,5 +21,19 @@ namespace AperoBoxApi.DAO
         {
             return await context.Commentaire.ToListAsync();
         }
+
+        public async Task<Commentaire> getCommentaireById(int id)
+        {
+            return await context.Commentaire
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task suppressionCommentaire(Commentaire commentaire)
+        {
+            context.Remove(commentaire);
+            await context.SaveChangesAsync();
+        }
+
+
     }
 }

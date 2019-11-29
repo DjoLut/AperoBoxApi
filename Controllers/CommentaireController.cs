@@ -42,5 +42,18 @@ namespace AperoBoxApi.Controllers
         {
             
         }
+
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(CommentaireDTO))]
+        public async Task<ActionResult> suppressionCommentaire(int id) 
+        {
+            Commentaire commentaire = await commentaireDAO.getCommentaireById(id);
+            if(commentaire == null)
+                return NotFound();
+            
+            await commentaireDAO.suppressionCommentaire(commentaire);
+            return Ok();
+        }
     }
 }

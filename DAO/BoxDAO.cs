@@ -21,5 +21,17 @@ namespace AperoBoxApi.DAO
         {
             return await context.Box.ToListAsync();
         }
+
+        public async Task<Box> getBoxById(int id)
+        {
+            return await context.Box
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task suppressionBox(Box box)
+        {
+            context.Remove(box);
+            await context.SaveChangesAsync();
+        }
     }
 }

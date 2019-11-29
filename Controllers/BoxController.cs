@@ -42,5 +42,18 @@ namespace AperoBoxApi.Controllers
         {
             
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        public async Task<ActionResult> suppressionBox(int id) 
+        {
+            Box box = await boxDAO.getBoxById(id);
+            if(box == null)
+                return NotFound();
+            
+            await boxDAO.suppressionBox(box);
+            return Ok();
+        }
+        
     }
 }
