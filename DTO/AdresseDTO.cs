@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
@@ -21,7 +20,7 @@ namespace AperoBoxApi.DTO
         [Required]
         [StringLength(100)]
         public string Pays { get; set; }
-        public virtual ICollection<Commande> Commande { get; set; }
-        public virtual ICollection<Utilisateur> Utilisateur { get; set; }
+        public virtual ICollection<CommandeDTO> Commande { get; set; }
+        public virtual ICollection<UtilisateurDTO> Utilisateur { get; set; }
     }
 }

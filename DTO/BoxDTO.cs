@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
@@ -27,8 +26,8 @@ namespace AperoBoxApi.DTO
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateCreation { get; set; }
-        public virtual ICollection<Commentaire> Commentaire { get; set; }
-        public virtual ICollection<LigneCommande> LigneCommande { get; set; }
-        public virtual ICollection<LigneProduit> LigneProduit { get; set; }
+        public virtual ICollection<CommentaireDTO> Commentaire { get; set; }
+        public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
+        public virtual ICollection<LigneProduitDTO> LigneProduit { get; set; }
     }
 }
