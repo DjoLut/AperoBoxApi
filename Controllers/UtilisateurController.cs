@@ -49,22 +49,29 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public void Post([FromBody]Utilisateur utilisateur)
+        [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
+        public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {
-            
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            Utilisateur utilisateur = mapper.Map<Utilisateur>(utilisateurDTO);
+            utilisateur = await utilisateurDAO.ajouterUtilisateur(utilisateur);
+            return Created($"api/Utilisateur/{utilisateur.Id}", mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
         [HttpPut]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult> modifUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
+        public async Task<ActionResult> modifierUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             int id = Decimal.ToInt32(utilisateurDTO.Id);
             Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
 
-            await utilisateurDAO.modifUtilisateur(utilisateur, utilisateurDTO);
+            await utilisateurDAO.modifierUtilisateur(utilisateur, utilisateurDTO);
 
             return Ok(utilisateur);
         }

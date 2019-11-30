@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
+using AperoBoxApi.Exceptions;
 
 namespace AperoBoxApi.DAO
 {
@@ -16,5 +17,24 @@ namespace AperoBoxApi.DAO
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
+
+        public async Task<List<Commande>> getAllCommandes()
+        {
+            return await context.Commande
+                .Include(c => c.Utilisateur)
+                .Include(c => c.Adresse)
+                .ToListAsync();
+        }
+
+        public async Task<Commande> ajouterCommande(Commande commande)
+        {
+            if (commande == null)
+                throw new CommandeNotFoundException();
+
+            context.Commande.Add(commande);
+            await context.SaveChangesAsync();
+            return commande;
+        }
+
     }
 }

@@ -28,9 +28,9 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
-        public async Task<ActionResult<IEnumerable<Commentaire>>> getCommentaires()
+        public async Task<ActionResult<IEnumerable<Commentaire>>> getAllCommentaires()
         {
-            List<Commentaire> commentaires = await commentaireDAO.getCommentaires();
+            List<Commentaire> commentaires = await commentaireDAO.getAllCommentaires();
             if (commentaires == null)
                 return NotFound();
 
@@ -38,11 +38,15 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        public void Post()
+        [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
+        public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {
-            
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            Commentaire commentaire = mapper.Map<Commentaire>(commentaireDTO);
+            commentaire = await commentaireDAO.ajouterCommentaire(commentaire);
+            return Created($"api/Commentaire/{commentaire.Id}", mapper.Map<CommentaireDTO>(commentaire));
         }
-
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200, Type = typeof(CommentaireDTO))]

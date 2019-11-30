@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
+using AperoBoxApi.Exceptions;
 
 namespace AperoBoxApi.DAO
 {
@@ -20,6 +21,16 @@ namespace AperoBoxApi.DAO
         public async Task<List<Produit>> getProduits()
         {
             return await context.Produit.ToListAsync();
+        }
+
+        public async Task<Produit> ajouterProduit(Produit produit)
+        {
+            if (produit == null)
+                throw new ProduitNotFoundException();
+
+            context.Produit.Add(produit);
+            await context.SaveChangesAsync();
+            return produit;
         }
     }
 }

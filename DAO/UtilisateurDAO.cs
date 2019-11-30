@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
 using AperoBoxApi.DTO;
+using AperoBoxApi.Exceptions;
 
 namespace AperoBoxApi.DAO
 {
@@ -32,16 +33,33 @@ namespace AperoBoxApi.DAO
 
         public async Task<List<Utilisateur>> getUtilisateurs()
         {
-            return await context.Utilisateur.ToListAsync();
+            return await context.Utilisateur
+                .Include(u => u.Commentaire)
+                .Include(u => u.Adresse)
+                .Include(u => u.Commande)
+                .ToListAsync();
         }
 
         public async Task<Utilisateur> getUtilisateurById(int id)
         {
             return await context.Utilisateur
+                .Include(u => u.Commentaire)
+                .Include(u => u.Adresse)
+                .Include(u => u.Commande)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task modifUtilisateur(Utilisateur utilisateur, UtilisateurDTO utilisateurDTO)
+        public async Task<Utilisateur> ajouterUtilisateur(Utilisateur utilisateur)
+        {
+            if (utilisateur == null)
+                throw new UtilisateurNotFoundException();
+
+            context.Utilisateur.Add(utilisateur);
+            await context.SaveChangesAsync();
+            return utilisateur;
+        }
+
+        public async Task modifierUtilisateur(Utilisateur utilisateur, UtilisateurDTO utilisateurDTO)
         {
             utilisateur.Id = utilisateurDTO.Id;
             utilisateur.Nom = utilisateurDTO.Nom;

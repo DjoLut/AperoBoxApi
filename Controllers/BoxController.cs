@@ -38,9 +38,28 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        public void Post()
+        [ProducesResponseType(201, Type = typeof(BoxDTO))]
+        public async Task<ActionResult> ajouterBox([FromBody] BoxDTO boxDTO)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            Box box = mapper.Map<Box>(boxDTO);
+            box = await boxDAO.ajouterBox(box);
+            return Created($"api/Box/{box.Id}", mapper.Map<BoxDTO>(box));
+        }
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        public async Task<ActionResult> modifierBox([FromBody] BoxDTO boxDTO)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             
+            int id = Decimal.ToInt32(boxDTO.Id);
+            Box box = await boxDAO.getBoxById(id);
+
+            await boxDAO.modifierBox(box, boxDTO);
+            return Ok(box);
         }
 
         [HttpDelete("{id}")]

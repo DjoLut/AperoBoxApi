@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AperoBoxApi.Models;
 using AperoBoxApi.Context;
+using AperoBoxApi.DAO;
+using AperoBoxApi.DTO;
+using AutoMapper;
 
 namespace AperoBoxApi.Controllers
 {
@@ -13,9 +16,36 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class CommandeController : ControllerBase
     {
-        public CommandeController()
+        private AperoBoxApi_dbContext context;
+        private CommandeDAO commandeDAO;
+        private readonly IMapper mapper;
+        public CommandeController(AperoBoxApi_dbContext context, IMapper mapper)
         {
-            ;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.commandeDAO = new CommandeDAO(context);
+            this.mapper = mapper;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<CommandeDTO>))]
+        public async Task<ActionResult<IEnumerable<Commande>>> getAllCommandes()
+        {
+            List<Commande> commandes = await commandeDAO.getAllCommandes();
+            if(commandes == null)
+                return NotFound();
+
+            return Ok(mapper.Map<List<CommandeDTO>>(commandes));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(201, Type = typeof(CommandeDTO))]
+        public async Task<ActionResult> ajouterCommande([FromBody] CommandeDTO commandeDTO)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            Commande commande = mapper.Map<Commande>(commandeDTO);
+            commande = await commandeDAO.ajouterCommande(commande);
+            return Created($"api/Commande/{commande.Id}", mapper.Map<CommandeDTO>(commande));
         }
     }
 }
