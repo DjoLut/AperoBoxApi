@@ -48,7 +48,29 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
-        [HttpPost]
+        [HttpGet("{username}")]
+        [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        public async Task<ActionResult<Utilisateur>> getUtilisateurByUsername(string username)
+        {
+          Utilisateur utilisateur = await utilisateurDAO.getUtilisateurByUsername(username);
+          if (utilisateur == null)
+            return NotFound();
+
+          return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
+        }
+
+		[HttpGet("{mail}")]
+		[ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+		public async Task<ActionResult<Utilisateur>> getUtilisateurByMail(string mail)
+		{
+			Utilisateur utilisateur = await utilisateurDAO.getUtilisateurByMail(mail);
+			if (utilisateur == null)
+			  return NotFound();
+
+			return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
+		}
+
+		[HttpPost]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {

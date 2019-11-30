@@ -47,6 +47,22 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<Utilisateur> getUtilisateurByUsername(string username)
+        {
+            return await context.Utilisateur
+                .Include(u=> u.Commentaire)
+                .Include(u => u.Commande)
+                .FirstOrDefaultAsync(u=> u.Username == username);
+        }
+
+        public async Task<Utilisateur> getUtilisateurByMail(string mail)
+        {
+            return await context.Utilisateur
+                .Include(u => u.Commentaire)
+                .Include(u => u.Commande)
+                .FirstOrDefaultAsync(u => u.Mail == mail);
+        }
+
         public async Task<Utilisateur> ajouterUtilisateur(Utilisateur utilisateur)
         {
             if (utilisateur == null)
