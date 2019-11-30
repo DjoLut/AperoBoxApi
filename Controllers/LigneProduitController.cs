@@ -35,5 +35,22 @@ namespace AperoBoxApi.Controllers
             ligneProduit = await ligneProduitDAO.ajouterLigneProduit(ligneProduit);
             return Created($"api/LigneProduit/{ligneProduit.Id}", mapper.Map<LigneCommandeDTO>(ligneProduit));
         }
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
+        public async Task<ActionResult> modifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            int id = Decimal.ToInt32(ligneProduitDTO.Id);
+            LigneProduit ligneProduit = await ligneProduitDAO.getLigneProduitById(id);
+            if(ligneProduit == null)
+                return NotFound();
+
+            await ligneProduitDAO.modifierLigneProduit(ligneProduit, ligneProduitDTO);
+
+            return Ok(ligneProduit);
+        }
     }
 }

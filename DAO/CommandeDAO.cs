@@ -35,6 +35,5 @@ namespace AperoBoxApi.DAO
             await context.SaveChangesAsync();
             return commande;
         }
-
     }
 }

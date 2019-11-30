@@ -36,7 +36,7 @@ namespace AperoBoxApi.DAO
 
         public async Task<Commentaire> ajouterCommentaire(Commentaire commentaire)
         {
-            if (commentaire == null)
+            if(commentaire == null)
                 throw new CommentaireNotFoundException();
 
             context.Commentaire.Add(commentaire);
@@ -46,6 +46,9 @@ namespace AperoBoxApi.DAO
 
         public async Task suppressionCommentaire(Commentaire commentaire)
         {
+            if(commentaire == null)
+                throw new CommentaireNotFoundException();
+
             context.Remove(commentaire);
             await context.SaveChangesAsync();
         }

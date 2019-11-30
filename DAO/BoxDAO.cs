@@ -19,12 +19,14 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Box>> getBoxes()
+        public async Task<List<Box>> getAllBoxes()
         {
             return await context.Box
                 .Include(b => b.Commentaire)
                 .Include(b => b.LigneProduit)
                     .ThenInclude(l => l.Produit)
+                .Include(b => b.LigneCommande)
+                    .ThenInclude(lc => lc.Commande)
                 .ToListAsync();
         }
 
@@ -33,8 +35,10 @@ namespace AperoBoxApi.DAO
             return await context.Box
                 .Include(b => b.Commentaire)
                 .Include(b => b.LigneProduit)
-                    .ThenInclude(l => l.Produit)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                    .ThenInclude(lp => lp.Produit)
+                .Include(b => b.LigneCommande)
+                    .ThenInclude(lc => lc.Commande)
+                .FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task modifierBox(Box box, BoxDTO boxDTO)
@@ -64,6 +68,27 @@ namespace AperoBoxApi.DAO
 
         public async Task suppressionBox(Box box)
         {
+            if(box == null)
+                throw new BoxNotFoundException();
+
+            if(box.Commentaire != null)
+            {
+                foreach(var commentaire in box.Commentaire)
+                    context.Remove(commentaire);
+            }
+
+            if(box.LigneCommande != null)
+            {
+                foreach(var lc in box.LigneCommande)
+                    context.Remove(lc);
+            }
+
+            if(box.LigneProduit != null)
+            {
+                foreach(var lp in box.LigneProduit)
+                    context.Remove(lp);
+            }
+
             context.Remove(box);
             await context.SaveChangesAsync();
         }

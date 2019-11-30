@@ -35,5 +35,21 @@ namespace AperoBoxApi.Controllers
             ligneCommande = await ligneCommandeDAO.ajouterLigneCommande(ligneCommande);
             return Created($"api/LigneCommande/{ligneCommande.Id}", mapper.Map<LigneCommandeDTO>(ligneCommande));
         }
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(LigneCommandeDTO))]
+        public async Task<ActionResult> modifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            int id = Decimal.ToInt32(ligneCommandeDTO.Id);
+            LigneCommande ligneCommande = await ligneCommandeDAO.getLigneCommandeById(id);
+            if(ligneCommande == null)
+                return NotFound();
+
+            await ligneCommandeDAO.modifierLigneCommande(ligneCommande, ligneCommandeDTO);
+            return Ok(ligneCommande);
+        }
     }
 }

@@ -28,9 +28,9 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
-        public async Task<ActionResult<IEnumerable<Utilisateur>>> getUtilisateurs()
+        public async Task<ActionResult<IEnumerable<Utilisateur>>> getAllUtilisateurs()
         {
-            List<Utilisateur> utilisateurs = await utilisateurDAO.getUtilisateurs();
+            List<Utilisateur> utilisateurs = await utilisateurDAO.getAllUtilisateurs();
             if (utilisateurs == null)
                 return NotFound();
 
@@ -72,7 +72,6 @@ namespace AperoBoxApi.Controllers
                 return NotFound();
 
             await utilisateurDAO.modifierUtilisateur(utilisateur, utilisateurDTO);
-
             return Ok(utilisateur);
         }
 

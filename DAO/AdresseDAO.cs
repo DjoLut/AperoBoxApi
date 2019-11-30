@@ -18,6 +18,12 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<List<Adresse>> getAllAdresses()
+        {
+            return await context.Adresse
+                .ToListAsync();
+        }
+
         public async Task<Adresse> ajouterAdresse(Adresse adresse)
         {
             if (adresse == null)

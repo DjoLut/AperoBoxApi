@@ -31,7 +31,7 @@ namespace AperoBoxApi.DAO
             return utilisateur;
         }*/
 
-        public async Task<List<Utilisateur>> getUtilisateurs()
+        public async Task<List<Utilisateur>> getAllUtilisateurs()
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
@@ -78,6 +78,21 @@ namespace AperoBoxApi.DAO
 
         public async Task suppressionUtilisateur(Utilisateur utilisateur)
         {
+            if(utilisateur == null)
+                throw new UtilisateurNotFoundException();
+
+            if(utilisateur.Commande != null)
+            {
+                foreach(var commande in utilisateur.Commande)
+                    context.Remove(commande);
+            }
+
+            if(utilisateur.Commentaire != null)
+            {
+                foreach(var commentaire in utilisateur.Commentaire)
+                    context.Remove(commentaire);
+            }
+
             context.Remove(utilisateur);
             await context.SaveChangesAsync();
         }

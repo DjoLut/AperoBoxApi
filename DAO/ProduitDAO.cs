@@ -18,9 +18,10 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Produit>> getProduits()
+        public async Task<List<Produit>> getAllProduits()
         {
-            return await context.Produit.ToListAsync();
+            return await context.Produit
+                .ToListAsync();
         }
 
         public async Task<Produit> ajouterProduit(Produit produit)

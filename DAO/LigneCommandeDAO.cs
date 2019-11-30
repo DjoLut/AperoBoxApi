@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
 using AperoBoxApi.Exceptions;
+using AperoBoxApi.DTO;
 
 namespace AperoBoxApi.DAO
 {
@@ -18,6 +19,15 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<LigneCommande> getLigneCommandeById(int id)
+        {
+            return await context.LigneCommande
+                .Include(lc => lc.Produit)
+                .Include(lc => lc.Box)
+                .Include(lc => lc.Commande)
+                .FirstOrDefaultAsync(lc => lc.Id == id);
+        }
+
         public async Task<LigneCommande> ajouterLigneCommande(LigneCommande ligneCommande)
         {
             if (ligneCommande == null)
@@ -26,6 +36,17 @@ namespace AperoBoxApi.DAO
             context.LigneCommande.Add(ligneCommande);
             await context.SaveChangesAsync();
             return ligneCommande;
+        }
+
+        public async Task modifierLigneCommande(LigneCommande ligneCommande, LigneCommandeDTO ligneCommandeDTO)
+        {
+            ligneCommande.Id = ligneCommandeDTO.Id;
+            ligneCommande.Quantite = ligneCommandeDTO.Quantite;
+            ligneCommande.Commande = ligneCommandeDTO.Commande;
+            ligneCommande.Box = ligneCommandeDTO.Box;
+            ligneCommande.Produit = ligneCommandeDTO.Produit;
+
+            await context.SaveChangesAsync();
         }
     }
 }

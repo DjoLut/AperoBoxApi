@@ -28,9 +28,9 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
-        public async Task<ActionResult<IEnumerable<Produit>>> getProduits()
+        public async Task<ActionResult<IEnumerable<Produit>>> getAllProduits()
         {
-            List<Produit> produits = await produitDAO.getProduits();
+            List<Produit> produits = await produitDAO.getAllProduits();
             if (produits == null)
                 return NotFound();
 

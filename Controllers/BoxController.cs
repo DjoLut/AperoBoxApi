@@ -28,9 +28,9 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
-        public async Task<ActionResult<IEnumerable<Box>>> getBoxes()
+        public async Task<ActionResult<IEnumerable<Box>>> getAllBoxes()
         {
-            List<Box> boxes = await boxDAO.getBoxes();
+            List<Box> boxes = await boxDAO.getAllBoxes();
             if (boxes == null)
                 return NotFound();
 
@@ -57,6 +57,8 @@ namespace AperoBoxApi.Controllers
             
             int id = Decimal.ToInt32(boxDTO.Id);
             Box box = await boxDAO.getBoxById(id);
+            if(box == null)
+                return NotFound();
 
             await boxDAO.modifierBox(box, boxDTO);
             return Ok(box);
