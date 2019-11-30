@@ -19,18 +19,6 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        /*public async Task<Utilisateur> ajoutUtilisateur(Utilisateur utilisateur)
-        {
-            if (utilisateur == null)
-                throw new UserNotFoundException();
-            context.utilisateur.Add(utilisateur);
-            UserRole userRole= new UserRole();
-            UserRoleDAO userRoleDAO = new UserRoleDAO(context);
-            await context.SaveChangesAsync();
-            await userRoleDAO.AddUserRole(utilisateur);
-            return utilisateur;
-        }*/
-
         public async Task<List<Utilisateur>> getAllUtilisateurs()
         {
             return await context.Utilisateur

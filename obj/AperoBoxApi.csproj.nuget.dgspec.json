@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Ecole\\IG1920\\3IG\\SmartCity\\AperoBoxApi\\AperoBoxApi.csproj": {}
+    "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {}
   },
   "projects": {
-    "D:\\Ecole\\IG1920\\3IG\\SmartCity\\AperoBoxApi\\AperoBoxApi.csproj": {
+    "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Ecole\\IG1920\\3IG\\SmartCity\\AperoBoxApi\\AperoBoxApi.csproj",
+        "projectUniqueName": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
         "projectName": "AperoBoxApi",
-        "projectPath": "D:\\Ecole\\IG1920\\3IG\\SmartCity\\AperoBoxApi\\AperoBoxApi.csproj",
-        "packagesPath": "C:\\Users\\pierr\\.nuget\\packages\\",
-        "outputPath": "D:\\Ecole\\IG1920\\3IG\\SmartCity\\AperoBoxApi\\obj\\",
+        "projectPath": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
+        "packagesPath": "C:\\Users\\Lutgen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pierr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lutgen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

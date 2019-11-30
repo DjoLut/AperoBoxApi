@@ -48,7 +48,7 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
-        [HttpGet("{username}")]
+        /*[HttpGet("{username}")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult<Utilisateur>> getUtilisateurByUsername(string username)
         {
@@ -68,7 +68,7 @@ namespace AperoBoxApi.Controllers
 			  return NotFound();
 
 			return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
-		}
+		}*/
 
 		[HttpPost]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]

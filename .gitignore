@@ -5,3 +5,5 @@ obj/AperoBoxApi.csproj.nuget.g.props
 obj/project.assets.json
 obj/Debug/netcoreapp3.0/AperoBoxApi.assets.cache
 obj/Debug/netcoreapp3.0/AperoBoxApi.csprojAssemblyReference.cache
+bin/Debug/netcoreapp3.0/AperoBoxApi.dll
+bin/Debug/netcoreapp3.0/AperoBoxApi.pdb
