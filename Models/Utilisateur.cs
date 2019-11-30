@@ -22,7 +22,7 @@ namespace AperoBoxApi.Models
         public string Authorities { get; set; }
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
-
+        
         public virtual Adresse AdresseNavigation { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Commentaire> Commentaire { get; set; }

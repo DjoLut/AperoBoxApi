@@ -22,8 +22,6 @@ namespace AperoBoxApi.DAO
         public async Task<LigneProduit> getLigneProduitById(int id)
         {
             return await context.LigneProduit
-                .Include(lp => lp.Box)
-                .Include(lp => lp.Produit)
                 .FirstOrDefaultAsync(lp => lp.Id == id);
         }
 

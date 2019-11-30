@@ -1,13 +1,19 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
-    public partial class CommandeDTO
+    public class CommandeDTO
     {
         public decimal Id { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime DateCreation { get; set; }
         public decimal Utilisateur { get; set; }
         public decimal Promotion { get; set; }
         public decimal Adresse { get; set; }
+        public virtual ICollection<LigneCommande> LigneCommande { get; set; }
     }
 }

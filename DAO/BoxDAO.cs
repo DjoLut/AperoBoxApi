@@ -24,9 +24,7 @@ namespace AperoBoxApi.DAO
             return await context.Box
                 .Include(b => b.Commentaire)
                 .Include(b => b.LigneProduit)
-                    .ThenInclude(l => l.Produit)
                 .Include(b => b.LigneCommande)
-                    .ThenInclude(lc => lc.Commande)
                 .ToListAsync();
         }
 
@@ -35,9 +33,7 @@ namespace AperoBoxApi.DAO
             return await context.Box
                 .Include(b => b.Commentaire)
                 .Include(b => b.LigneProduit)
-                    .ThenInclude(lp => lp.Produit)
                 .Include(b => b.LigneCommande)
-                    .ThenInclude(lc => lc.Commande)
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 

@@ -35,7 +35,6 @@ namespace AperoBoxApi.DAO
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
-                .Include(u => u.Adresse)
                 .Include(u => u.Commande)
                 .ToListAsync();
         }
@@ -44,7 +43,6 @@ namespace AperoBoxApi.DAO
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
-                .Include(u => u.Adresse)
                 .Include(u => u.Commande)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }

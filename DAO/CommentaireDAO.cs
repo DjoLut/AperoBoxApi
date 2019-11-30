@@ -21,16 +21,12 @@ namespace AperoBoxApi.DAO
         public async Task<List<Commentaire>> getAllCommentaires()
         {
             return await context.Commentaire
-                .Include(c => c.Utilisateur)
-                .Include(c => c.Box)
                 .ToListAsync();
         }
 
         public async Task<Commentaire> getCommentaireById(int id)
         {
             return await context.Commentaire
-                .Include(c => c.Utilisateur)
-                .Include(c => c.Box)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

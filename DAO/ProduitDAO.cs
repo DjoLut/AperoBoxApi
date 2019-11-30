@@ -21,6 +21,8 @@ namespace AperoBoxApi.DAO
         public async Task<List<Produit>> getAllProduits()
         {
             return await context.Produit
+                .Include(p => p.LigneCommande)
+                .Include(p => p.LigneProduit)
                 .ToListAsync();
         }
 

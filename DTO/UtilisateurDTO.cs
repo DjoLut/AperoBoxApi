@@ -1,23 +1,37 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
-    public partial class UtilisateurDTO
+    public class UtilisateurDTO
     {
         public decimal Id { get; set; }
         [Required]
+        [StringLength(100)]
         public string Nom { get; set; }
         [Required]
+        [StringLength(100)]
         public string Prenom { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime DateNaissance { get; set; }
+        [Required]
         [EmailAddress]
         public string Mail { get; set; }
         public decimal? Telephone { get; set; }
+        [Required]
         public decimal Gsm { get; set; }
+        [Required]
+        [StringLength(100)]
         public string Username { get; set; }
         public string Authorities { get; set; }
+        [Required]
+        [StringLength(100)]
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
+        public virtual ICollection<Commande> Commande { get; set; }
+        public virtual ICollection<Commentaire> Commentaire { get; set; }
     }
 }

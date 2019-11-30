@@ -21,8 +21,7 @@ namespace AperoBoxApi.DAO
         public async Task<List<Commande>> getAllCommandes()
         {
             return await context.Commande
-                .Include(c => c.Utilisateur)
-                .Include(c => c.Adresse)
+                .Include(c => c.LigneCommande)
                 .ToListAsync();
         }
 

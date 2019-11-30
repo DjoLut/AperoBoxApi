@@ -1,8 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
-    public partial class LigneProduitDTO
+    public class LigneProduitDTO
     {
         public decimal Id { get; set; }
         public decimal? Quantite { get; set; }
