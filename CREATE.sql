@@ -12,6 +12,7 @@ CREATE TABLE [apero].[Produit](
 	[Nom] [varchar](50) NOT NULL,
 	[DatePeremption] [date] NULL,
 	[Alcool] [tinyint] NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Produit] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -40,6 +41,7 @@ CREATE TABLE [apero].[Adresse](
 	[Localite] [varchar](250) NOT NULL,
 	[CodePostal] [numeric](18, 0) NOT NULL,
 	[Pays] [varchar](250) NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Adresse] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -65,6 +67,7 @@ CREATE TABLE [apero].[Box](
 	[Photo] [varchar](150) NOT NULL,
 	[Affichable] [tinyint] NOT NULL,
 	[DateCreation] [date] NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Box] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -98,6 +101,7 @@ CREATE TABLE [apero].[Utilisateur](
     [Authorities] [varchar](500) NOT NULL,
     [MotDePasse] [varchar](255) NOT NULL,
     [Adresse] [numeric](18, 0) NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Utilisateur] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -119,6 +123,7 @@ CREATE TABLE [apero].[Commentaire](
     [DateCreation] [date] NOT NULL,
     [Utilisateur] [numeric](18, 0) NOT NULL,
     [Box] [numeric](18, 0) NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Commentaire] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -141,6 +146,7 @@ CREATE TABLE [apero].[Commande](
     [Promotion] [numeric](18,2) NOT NULL,
     [Utilisateur] [numeric](18, 0) NOT NULL,
     [Adresse] [numeric](18, 0) NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_Commande] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -158,10 +164,11 @@ GO
 
 CREATE TABLE [apero].[LigneCommande](
 	[ID] [numeric](18, 0) NOT NULL IDENTITY(1,1),
-    [Quantite] [numeric](3,0),
+    [Quantite] [numeric](3,0) NOT NULL,
     [Commande] [numeric](18, 0) NOT NULL,
     [Box] [numeric](18, 0),
     [Produit] [numeric] (18,0),
+	RowVersion timestamp
  CONSTRAINT [PK_LigneCommande] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -182,9 +189,10 @@ GO
 
 CREATE TABLE [apero].[LigneProduit](
 	[ID] [numeric](18, 0) NOT NULL IDENTITY(1,1),
-    [Quantite] [numeric](3,0),
-    [Box] [numeric](18, 0),
-    [Produit] [numeric] (18,0),
+    [Quantite] [numeric](3,0) NOT NULL,
+    [Box] [numeric](18, 0) NOT NULL,
+    [Produit] [numeric] (18,0) NOT NULL,
+	RowVersion timestamp
  CONSTRAINT [PK_LigneProduit] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
