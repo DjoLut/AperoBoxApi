@@ -37,6 +37,17 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<AdresseDTO>>(adresses));
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
+        public async Task<ActionResult<Adresse>> getAdresseById(int id)
+        {
+            Adresse adresse = await adresseDAO.getAdresseById(id);
+            if (adresse == null)
+                return NotFound();
+
+            return Ok(mapper.Map<AdresseDTO>(adresse));
+        }
+
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(AdresseDTO))]
         public async Task<ActionResult> ajouterAdresse([FromBody]AdresseDTO adresseDTO)
