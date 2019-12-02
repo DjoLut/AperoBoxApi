@@ -37,6 +37,17 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<CommentaireDTO>>(commentaires));
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        public async Task<ActionResult<Commentaire>> getCommentaireById(int id)
+        {
+            Commentaire commentaire = await commentaireDAO.getCommentaireById(id);
+            if (commentaire == null)
+                return NotFound();
+
+            return Ok(mapper.Map<CommentaireDTO>(commentaire));
+        }
+
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
