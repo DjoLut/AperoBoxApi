@@ -221,11 +221,11 @@ GO
 /*
 CREATE TABLE [apero].[UtilisateurRole](
 	[IdRole] [nvarchar](450) NOT NULL,
-	[IdUser] [int] NOT NULL,
+	[IdUtilisateur] [int] NOT NULL,
  CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED 
 (
 	[IdRole] ASC,
-	[IdUser] ASC
+	[IdUtilisateur] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -238,12 +238,12 @@ GO
 ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UserRole_Role_IdRole]
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UserRole_User_IdUser] FOREIGN KEY([IdUser])
+ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UserRole_User_IdUtilisateur] FOREIGN KEY([IdUtilisateur])
 REFERENCES [apero].[Utilisateur] ([ID])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UserRole_User_IdUser]
+ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UserRole_User_IdUtilisateur]
 GO
 */
 
