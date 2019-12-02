@@ -37,6 +37,17 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<ProduitDTO>>(produits));
         }
 
+        [HttpGet("id")]
+        [ProducesResponseType(200, Type = typeof(ProduitDTO))]
+        public async Task<ActionResult<Produit>> getAProduitById(int id)
+        {
+            Produit produit = await produitDAO.GetProduitById(id);
+            if (produit == null)
+                return NotFound();
+
+            return Ok(mapper.Map<ProduitDTO>(produit));
+        }
+
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(ProduitDTO))]
         public async Task<ActionResult> ajouterProduit([FromBody]ProduitDTO produitDTO)
