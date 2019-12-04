@@ -29,9 +29,17 @@ namespace AperoBoxApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AperoBoxApi_dbContext>(options => 
+            services.AddDbContext<AperoBoxApi_dbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Connection")));
             services.AddControllers();
+
+            services.AddCors(options => 
+                options.AddPolicy("AllowClientOrigin",
+                    builder => builder.WithOrigins("*")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin())
+            );
 
             //AutoMapper
             var mappingConfig = new MapperConfiguration(mc =>
@@ -41,9 +49,11 @@ namespace AperoBoxApi
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
