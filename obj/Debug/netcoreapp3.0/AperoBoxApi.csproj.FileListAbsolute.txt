@@ -114,3 +114,10 @@ D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.Ra
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.csproj.CopyComplete
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.dll
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.pdb
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.MvcApplicationPartsAssemblyInfo.cs

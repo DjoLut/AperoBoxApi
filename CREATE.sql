@@ -27,6 +27,7 @@ ALTER TABLE [apero].[Produit] CHECK CONSTRAINT [CK_Produit_PrixUnitaireHTVA_Posi
 GO
 
 ALTER TABLE [apero].[Produit]  WITH CHECK ADD  CONSTRAINT [CK_Produit_TVA_MAX50%] CHECK  (([TVA]<=(0.5)))
+GO
 
 ALTER TABLE [apero].[Produit] CHECK CONSTRAINT [CK_Produit_TVA_MAX50%]
 GO
