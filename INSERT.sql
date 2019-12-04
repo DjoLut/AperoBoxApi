@@ -1,7 +1,7 @@
 INSERT INTO [apero].[Adresse]([Rue], [Numero], [Localite], [CodePostal], [Pays])
-	VALUES('Senonchamps','107', 'Bastogne', 6600, 'Belgique');
+	VALUES('Senonchamps',107, 'Bastogne', 6600, 'Belgique');
 INSERT INTO [apero].[Adresse]([Rue], [Numero], [Localite], [CodePostal], [Pays])
-	VALUES('Rue de l''ermitage', '18', 'Aubange', 6782, 'Belgique');
+	VALUES('Rue de l''ermitage', 18, 'Aubange', 6782, 'Belgique');
 INSERT INTO [apero].[Adresse]([Rue], [Numero], [Localite], [CodePostal], [Pays])
 	VALUES('Rue de la Rulles', 409, 'Saint-nicolas',4420,'Belgique')
 INSERT INTO [apero].[Adresse]([Rue], [Numero], [Localite], [CodePostal], [Pays])
@@ -92,7 +92,3 @@ INSERT INTO [apero].[UtilisateurRole](IdRole, IdUtilisateur)
 
 select * from [apero].[UtilisateurRole];
 */
-
-
-
-

@@ -37,7 +37,7 @@ GO
 CREATE TABLE [apero].[Adresse](
 	[ID] [numeric](18, 0) NOT NULL IDENTITY(1,1),
 	[Rue] [varchar](250) NOT NULL,
-	[Numero] [varchar](50) NOT NULL,
+	[Numero] [numeric](18, 0) NOT NULL,
 	[Localite] [varchar](250) NOT NULL,
 	[CodePostal] [numeric](18, 0) NOT NULL,
 	[Pays] [varchar](250) NOT NULL,

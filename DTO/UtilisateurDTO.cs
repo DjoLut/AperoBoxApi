@@ -6,6 +6,7 @@ namespace AperoBoxApi.DTO
 {
     public class UtilisateurDTO
     {
+        [Required]
         public decimal Id { get; set; }
         [Required]
         [StringLength(100)]
@@ -26,8 +27,6 @@ namespace AperoBoxApi.DTO
         [StringLength(100)]
         public string Username { get; set; }
         public string Authorities { get; set; }
-        [Required]
-        [StringLength(100)]
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
         public virtual ICollection<CommandeDTO> Commande { get; set; }

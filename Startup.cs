@@ -30,9 +30,17 @@ namespace AperoBoxApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AperoBoxApi_dbContext>(options => 
+            services.AddDbContext<AperoBoxApi_dbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Connection")));
             services.AddControllers();
+
+            services.AddCors(options => 
+                options.AddPolicy("AllowClientOrigin",
+                    builder => builder.WithOrigins("*")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin())
+            );
 
             //AutoMapper
             var mappingConfig = new MapperConfiguration(mc =>
@@ -42,8 +50,10 @@ namespace AperoBoxApi
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+<<<<<<< HEAD
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -51,6 +61,10 @@ namespace AperoBoxApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AperoBoxApi", Version = "v1" });
             });
+=======
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
+
+>>>>>>> 3a5043ac6b382380e20fabfad23250274c654182
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,7 +11,7 @@ namespace AperoBoxApi.DTO
         [StringLength(500)]
         public string Rue { get; set; }
         [Required]
-        public string Numero { get; set; }
+        public decimal Numero { get; set; }
         [Required]
         [StringLength(100)]
         public string Localite { get; set; }
