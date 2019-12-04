@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
@@ -22,7 +21,7 @@ namespace AperoBoxApi.DTO
         public DateTime? DatePeremption { get; set; }
         [Required]
         public byte Alcool { get; set; }
-        public virtual ICollection<LigneCommande> LigneCommande { get; set; }
-        public virtual ICollection<LigneProduit> LigneProduit { get; set; }
+        public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
+        public virtual ICollection<LigneProduitDTO> LigneProduit { get; set; }
     }
 }

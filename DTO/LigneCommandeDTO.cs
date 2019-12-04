@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {

@@ -26,6 +26,14 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
 
+        public async Task<Adresse> getAdresseById(int id)
+        {
+            return await context.Adresse
+                .Include(a => a.Utilisateur)
+                .Include(a => a.Commande)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<Adresse> ajouterAdresse(Adresse adresse)
         {
             if (adresse == null)

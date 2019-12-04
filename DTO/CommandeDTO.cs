@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using AperoBoxApi.Models;
 
 namespace AperoBoxApi.DTO
 {
@@ -14,6 +13,6 @@ namespace AperoBoxApi.DTO
         public decimal Utilisateur { get; set; }
         public decimal Promotion { get; set; }
         public decimal Adresse { get; set; }
-        public virtual ICollection<LigneCommande> LigneCommande { get; set; }
+        public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
     }
 }

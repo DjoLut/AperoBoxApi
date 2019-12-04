@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AperoBoxApi.Models
 {
@@ -10,8 +9,7 @@ namespace AperoBoxApi.Models
         public DateTime DateCreation { get; set; }
         public decimal Utilisateur { get; set; }
         public decimal Box { get; set; }
-
-        public virtual Box BoxNavigation { get; set; }
         public virtual Utilisateur UtilisateurNavigation { get; set; }
+        public virtual Box BoxNavigation { get; set; }
     }
 }
