@@ -52,28 +52,14 @@ namespace AperoBoxApi
             services.AddSingleton(mapper);
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
-<<<<<<< HEAD
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
 
-=======
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-<<<<<<< HEAD
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
             // Register the Swagger generator, defining 1 or more Swagger documents
->>>>>>> 462245fefe471ba7e501c2b4bca6f8859bd9498f
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AperoBoxApi", Version = "v1" });
             });
-<<<<<<< HEAD
-=======
-=======
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
->>>>>>> 462245fefe471ba7e501c2b4bca6f8859bd9498f
-
->>>>>>> 3a5043ac6b382380e20fabfad23250274c654182
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,13 +73,6 @@ namespace AperoBoxApi
             {
                 app.UseHsts();
             }
-
-            //Swagger
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
 
             app.UseCors(builder =>
                 builder.WithOrigins("*")
@@ -111,8 +90,7 @@ namespace AperoBoxApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

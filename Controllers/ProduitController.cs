@@ -39,9 +39,9 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet("id")]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
-        public async Task<ActionResult<Produit>> getAProduitById(int id)
+        public async Task<ActionResult<Produit>> getProduitById(int id)
         {
-            Produit produit = await produitDAO.GetProduitById(id);
+            Produit produit = await produitDAO.getProduitById(id);
             if (produit == null)
                 return NotFound();
 
