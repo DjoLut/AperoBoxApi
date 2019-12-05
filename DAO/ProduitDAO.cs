@@ -23,8 +23,15 @@ namespace AperoBoxApi.DAO
             return await context.Produit
                 .Include(p => p.LigneCommande)
                 .Include(p => p.LigneProduit)
-                    .ThenInclude(l=>l.Box)
                 .ToListAsync();
+        }
+        
+        public async Task<Produit> getProduitById(int id)
+        {
+            return await context.Produit
+                .Include(p => p.LigneCommande)
+                .Include(p => p.LigneProduit)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Produit> ajouterProduit(Produit produit)
@@ -35,13 +42,6 @@ namespace AperoBoxApi.DAO
             context.Produit.Add(produit);
             await context.SaveChangesAsync();
             return produit;
-        }
-
-        public async Task<Produit> GetProduitById(int id){
-            return await context.Produit
-                .Include(p => p.LigneCommande)
-                .Include(p => p.LigneProduit)
-                .FirstOrDefaultAsync(p=>p.Id==id);
         }
     }
 }

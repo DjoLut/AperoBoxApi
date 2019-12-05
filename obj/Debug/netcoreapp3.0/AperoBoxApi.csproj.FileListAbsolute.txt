@@ -121,3 +121,10 @@ D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.As
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Ecole\IG1920\3IG\SmartCity\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Debug\netcoreapp3.0\AperoBoxApi.MvcApplicationPartsAssemblyInfo.cs

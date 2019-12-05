@@ -52,9 +52,15 @@ namespace AperoBoxApi
             services.AddSingleton(mapper);
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
+<<<<<<< HEAD
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
 
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+=======
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
+
+>>>>>>> 772a0a2c6ab5d62b88b69b9839c3a2382b42387b
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -90,8 +96,7 @@ namespace AperoBoxApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

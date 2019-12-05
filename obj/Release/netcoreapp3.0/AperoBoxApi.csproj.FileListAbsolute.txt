@@ -56,3 +56,10 @@ C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\net
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Newtonsoft.Json.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.OpenApi.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Release\netcoreapp3.0\AperoBoxApi.MvcApplicationPartsAssemblyInfo.cs
