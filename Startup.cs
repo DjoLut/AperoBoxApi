@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using AperoBoxApi.Context;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.OpenApi.Models;
 
 
 namespace AperoBoxApi
@@ -51,8 +52,13 @@ namespace AperoBoxApi
             services.AddSingleton(mapper);
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0); ;
+                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AperoBoxApi", Version = "v1" });
+            });
 
         }
 
@@ -67,6 +73,13 @@ namespace AperoBoxApi
             {
                 app.UseHsts();
             }
+
+            //Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseCors(builder =>
                 builder.WithOrigins("*")

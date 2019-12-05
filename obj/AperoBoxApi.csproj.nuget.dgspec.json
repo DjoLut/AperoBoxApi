@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {}
+    "c:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {
+    "c:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
+        "projectUniqueName": "c:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
         "projectName": "AperoBoxApi",
-        "projectPath": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
+        "projectPath": "c:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\AperoBoxApi.csproj",
         "packagesPath": "C:\\Users\\Lutgen\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\obj\\",
+        "outputPath": "c:\\Users\\Lutgen\\Desktop\\3emeIGNamurBis\\SmartCity\\Api\\AperoBoxApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lutgen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -67,6 +67,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.0.0-rc4, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
