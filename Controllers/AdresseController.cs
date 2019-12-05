@@ -39,7 +39,6 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
-        [ProducesResponseType(404)]
         public async Task<ActionResult<Adresse>> getAdresseById(int id)
         {
             Adresse adresse = await adresseDAO.getAdresseById(id);
