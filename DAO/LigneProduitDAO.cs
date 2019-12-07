@@ -44,5 +44,14 @@ namespace AperoBoxApi.DAO
 
             await context.SaveChangesAsync();
         }
+
+        public async Task suppressionLigneProduit(LigneProduit ligneProduit)
+        {
+            if(ligneProduit == null)
+                throw new LigneProduitNotFoundException();
+            
+            context.Remove(ligneProduit);
+            await context.SaveChangesAsync();
+        }
     }
 }

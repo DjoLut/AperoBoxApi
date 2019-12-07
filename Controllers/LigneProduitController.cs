@@ -52,5 +52,17 @@ namespace AperoBoxApi.Controllers
 
             return Ok(ligneProduit);
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
+        public async Task<ActionResult> suppressionLigneProduit(int id)
+        {
+            LigneProduit ligneProduit = await ligneProduitDAO.getLigneProduitById(id);
+            if(ligneProduit == null)
+                return NotFound();
+
+            await ligneProduitDAO.suppressionLigneProduit(ligneProduit);
+            return Ok();
+        }
     }
 }
