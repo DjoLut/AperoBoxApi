@@ -33,7 +33,7 @@ namespace AperoBoxApi.Controllers
                 return BadRequest(ModelState);
             LigneProduit ligneProduit = mapper.Map<LigneProduit>(ligneProduitDTO);
             ligneProduit = await ligneProduitDAO.ajouterLigneProduit(ligneProduit);
-            return Created($"api/LigneProduit/{ligneProduit.Id}", mapper.Map<LigneCommandeDTO>(ligneProduit));
+            return Created($"api/LigneProduit/{ligneProduit.Id}", mapper.Map<LigneProduitDTO>(ligneProduit));
         }
 
         [HttpPut]
