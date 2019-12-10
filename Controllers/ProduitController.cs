@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
         public async Task<ActionResult<IEnumerable<Produit>>> getAllProduits()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("id")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
         public async Task<ActionResult<Produit>> getProduitById(int id)
         {
@@ -54,7 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(ProduitDTO))]
         public async Task<ActionResult> ajouterProduit([FromBody]ProduitDTO produitDTO)
         {

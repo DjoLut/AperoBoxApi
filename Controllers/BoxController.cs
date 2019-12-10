@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
         public async Task<ActionResult<IEnumerable<Box>>> getAllBoxes()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(BoxDTO))]
         public async Task<ActionResult> ajouterBox([FromBody] BoxDTO boxDTO)
         {
@@ -54,6 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
         public async Task<ActionResult> modifierBox([FromBody] BoxDTO boxDTO)
         {
@@ -70,7 +71,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
         public async Task<ActionResult> suppressionBox(int id) 
         {

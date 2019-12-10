@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
         public async Task<ActionResult<IEnumerable<Commentaire>>> getAllCommentaires()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
         public async Task<ActionResult<Commentaire>> getCommentaireById(int id)
         {
@@ -54,7 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {
@@ -66,7 +66,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> suppressionCommentaire(int id) 
         {

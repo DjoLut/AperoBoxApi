@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> getAllUtilisateurs()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
         {
@@ -76,7 +76,7 @@ namespace AperoBoxApi.Controllers
 		}*/
 
 		[HttpPost]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {
@@ -88,7 +88,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> modifierUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
         {
@@ -105,7 +105,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> suppressionUtilisateur(int id) 
         {

@@ -12,6 +12,7 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net;
 
 namespace AperoBoxApi.Controllers
 {
@@ -27,11 +28,11 @@ namespace AperoBoxApi.Controllers
         {
             this._jwtOptions = jwtOptions.Value;
             this.context = context ?? throw new ArgumentNullException(nameof(context));
-        } 
+        }
 
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(String))]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginModelDTO loginModelDTO)
+        public async Task<IActionResult> Login([FromBody] LoginModelDTO loginModelDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -46,7 +47,8 @@ namespace AperoBoxApi.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                 new Claim(JwtRegisteredClaimNames.Iat, 
                     ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(),
-                    ClaimValueTypes.Integer64)
+                    ClaimValueTypes.Integer64),
+                new Claim(PrivateClaims.UserId, userFound.Id.ToString())
             };
 
             //ADD role

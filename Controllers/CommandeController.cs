@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommandeDTO>))]
         public async Task<ActionResult<IEnumerable<Commande>>> getAllCommandes()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)]
         [ProducesResponseType(201, Type = typeof(CommandeDTO))]
         public async Task<ActionResult> ajouterCommande([FromBody] CommandeDTO commandeDTO)
         {

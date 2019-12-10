@@ -24,6 +24,8 @@ namespace AperoBoxApi.Models
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
 
+        //public string[] Roles { get; set; }
+
         public virtual Adresse AdresseNavigation { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Commentaire> Commentaire { get; set; }

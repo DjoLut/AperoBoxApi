@@ -29,7 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
         [ProducesResponseType(201, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> ajouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
         {
@@ -41,7 +41,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> modifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
         {
@@ -59,7 +59,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> suppressionLigneProduit(int id)
         {

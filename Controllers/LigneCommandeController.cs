@@ -29,7 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
         [ProducesResponseType(201, Type = typeof(LigneCommandeDTO))]
         public async Task<ActionResult> ajouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
         {
@@ -41,7 +41,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "utilisateur")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneCommandeDTO))]
         public async Task<ActionResult> modifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
         {

@@ -16,7 +16,7 @@ namespace AperoBoxApi.Models
         public IEnumerable<Utilisateur> GetUtilisateurs(){
             return context.Utilisateur
             .Include(u => u.UtilisateurRole)
-                .ThenInclude(r => r.IdRole)
+                .ThenInclude(r => r.IdRoleNavigation)
             .ToList();
         }
         

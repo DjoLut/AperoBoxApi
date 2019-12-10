@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
         public async Task<ActionResult<IEnumerable<Adresse>>> getAllAdresses()
         {
@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
         public async Task<ActionResult<Adresse>> getAdresseById(int id)
         {
@@ -54,7 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(AdresseDTO))]
         public async Task<ActionResult> ajouterAdresse([FromBody]AdresseDTO adresseDTO)
         {
