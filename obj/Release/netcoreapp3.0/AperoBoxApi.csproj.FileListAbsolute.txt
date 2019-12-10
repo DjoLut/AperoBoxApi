@@ -63,3 +63,10 @@ C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\net
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\obj\Release\netcoreapp3.0\AperoBoxApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
