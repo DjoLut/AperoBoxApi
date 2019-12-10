@@ -18,6 +18,7 @@ namespace AperoBoxApi.Models
         public decimal CodePostal { get; set; }
         public string Pays { get; set; }
         public byte[] RowVersion { get; set; }
+
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Utilisateur> Utilisateur { get; set; }
     }

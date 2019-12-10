@@ -1,13 +1,17 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace AperoBoxApi.Models
 {
-    public class Role
+    public partial class Role
     {
-        public string Nom {get; set;}
-        public ICollection<UtilisateurRole> UtilisateurRoles { get; set; }
+        public Role()
+        {
+            UtilisateurRole = new HashSet<UtilisateurRole>();
+        }
 
+        public string Nom { get; set; }
+
+        public virtual ICollection<UtilisateurRole> UtilisateurRole { get; set; }
     }
-
 }

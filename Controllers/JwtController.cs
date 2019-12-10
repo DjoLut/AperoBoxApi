@@ -50,9 +50,9 @@ namespace AperoBoxApi.Controllers
             };
 
             //ADD role
-            if(userFound.UtilisateurRoles != null)
+            if(userFound.UtilisateurRole != null)
             {
-                userFound.UtilisateurRoles.ToList().ForEach(u => claims.Add(new Claim("roles", u.Role.Nom)));
+                userFound.UtilisateurRole.ToList().ForEach(u => claims.Add(new Claim("roles", u.IdRoleNavigation.Nom)));
             }
 
             JwtSecurityToken token = new JwtSecurityToken(

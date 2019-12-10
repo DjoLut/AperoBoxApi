@@ -38,9 +38,6 @@ namespace AperoBoxApi.DAO
         public async Task modifierLigneProduit(LigneProduit ligneProduit, LigneProduitDTO ligneProduitDTO)
         {
             ligneProduit.Id = ligneProduitDTO.Id;
-            ligneProduit.Quantite = ligneProduitDTO.Quantite;
-            ligneProduit.Box = ligneProduitDTO.Box;
-            ligneProduit.Produit = ligneProduitDTO.Produit;
             context.Entry(ligneProduit).OriginalValues["RowVersion"] = ligneProduitDTO.RowVersion;
 
             await context.SaveChangesAsync();

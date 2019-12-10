@@ -1,16 +1,14 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AperoBoxApi.Models
 {
-    public class UtilisateurRole
+    public partial class UtilisateurRole
     {
-        public string IdRole {get; set;}
-        public int IdUtilisateur {get; set;}
+        public string IdRole { get; set; }
+        public decimal IdUtilisateur { get; set; }
 
-        public Utilisateur utilisateur {get; set;}
-
-        public Role Role {get; set;}
-        
+        public virtual Role IdRoleNavigation { get; set; }
+        public virtual Utilisateur IdUtilisateurNavigation { get; set; }
     }
-
 }

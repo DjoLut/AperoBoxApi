@@ -9,6 +9,7 @@ namespace AperoBoxApi.Models
         {
             Commande = new HashSet<Commande>();
             Commentaire = new HashSet<Commentaire>();
+            UtilisateurRole = new HashSet<UtilisateurRole>();
         }
 
         public decimal Id { get; set; }
@@ -22,9 +23,10 @@ namespace AperoBoxApi.Models
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
+
         public virtual Adresse AdresseNavigation { get; set; }
-        public virtual ICollection<UtilisateurRole> UtilisateurRoles { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Commentaire> Commentaire { get; set; }
+        public virtual ICollection<UtilisateurRole> UtilisateurRole { get; set; }
     }
 }

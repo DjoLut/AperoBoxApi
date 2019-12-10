@@ -38,7 +38,6 @@ namespace AperoBoxApi.DAO
         public async Task modifierLigneCommande(LigneCommande ligneCommande, LigneCommandeDTO ligneCommandeDTO)
         {
             ligneCommande.Id = ligneCommandeDTO.Id;
-            ligneCommande.Quantite = ligneCommandeDTO.Quantite;
             ligneCommande.Commande = ligneCommandeDTO.Commande;
             ligneCommande.Box = ligneCommandeDTO.Box;
             ligneCommande.Produit = ligneCommandeDTO.Produit;

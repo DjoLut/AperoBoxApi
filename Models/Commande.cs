@@ -16,6 +16,7 @@ namespace AperoBoxApi.Models
         public decimal Utilisateur { get; set; }
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
+
         public virtual Adresse AdresseNavigation { get; set; }
         public virtual Utilisateur UtilisateurNavigation { get; set; }
         public virtual ICollection<LigneCommande> LigneCommande { get; set; }
