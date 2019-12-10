@@ -98,7 +98,6 @@ CREATE TABLE [apero].[Utilisateur](
     [Telephone] [numeric](18,0),
     [GSM] [numeric](18,0) NOT NULL,
     [Username] [varchar](255) NOT NULL,
-    [Authorities] [varchar](500) NOT NULL,
     [MotDePasse] [varchar](255) NOT NULL,
     [Adresse] [numeric](18, 0) NOT NULL,
 	RowVersion timestamp
@@ -207,22 +206,22 @@ ALTER TABLE [apero].[LigneProduit] ADD CONSTRAINT [Fk_LigneProduit_Produit] FORE
 GO
 
 /****** Object:  Table [apero].[Role]    Script Date: 30-11-19 19:39:07 ******/
-/*
+
 CREATE TABLE [apero].[Role](
-	[Nom] [nvarchar](450) NOT NULL,
+	[Nom] [varchar](450) NOT NULL,
  CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
 (
 	[Nom] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-*/
+
 /****** Object:  Table [apero].[UtilisateurRole]    Script Date: 30-11-19 19:39:07 ******/
-/*
+
 CREATE TABLE [apero].[UtilisateurRole](
-	[IdRole] [nvarchar](450) NOT NULL,
-	[IdUtilisateur] [int] NOT NULL,
- CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED 
+	[IdRole] [varchar](450) NOT NULL,
+	[IdUtilisateur] [numeric](18, 0) NOT NULL,
+ CONSTRAINT [PK_UtilisateurRole] PRIMARY KEY CLUSTERED 
 (
 	[IdRole] ASC,
 	[IdUtilisateur] ASC
@@ -230,22 +229,20 @@ CREATE TABLE [apero].[UtilisateurRole](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UserRole_Role_IdRole] FOREIGN KEY([IdRole])
+ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UtilisateurRole_Role_IdRole] FOREIGN KEY([IdRole])
 REFERENCES [apero].[Role] ([Nom])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UserRole_Role_IdRole]
+ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UtilisateurRole_Role_IdRole]
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UserRole_User_IdUtilisateur] FOREIGN KEY([IdUtilisateur])
+ALTER TABLE [apero].[UtilisateurRole] WITH CHECK ADD  CONSTRAINT [FK_UtilisateurRole_Utilisateur_IdUtilisateur] FOREIGN KEY([IdUtilisateur])
 REFERENCES [apero].[Utilisateur] ([ID])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UserRole_User_IdUtilisateur]
+ALTER TABLE [apero].[UtilisateurRole] CHECK CONSTRAINT [FK_UtilisateurRole_Utilisateur_IdUtilisateur]
 GO
-*/
-
 
 

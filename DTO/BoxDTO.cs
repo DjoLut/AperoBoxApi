@@ -26,6 +26,7 @@ namespace AperoBoxApi.DTO
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateCreation { get; set; }
+        public byte[] RowVersion { get; set; }
         public virtual ICollection<CommentaireDTO> Commentaire { get; set; }
         public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
         public virtual ICollection<LigneProduitDTO> LigneProduit { get; set; }

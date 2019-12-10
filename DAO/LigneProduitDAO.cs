@@ -41,6 +41,7 @@ namespace AperoBoxApi.DAO
             ligneProduit.Quantite = ligneProduitDTO.Quantite;
             ligneProduit.Box = ligneProduitDTO.Box;
             ligneProduit.Produit = ligneProduitDTO.Produit;
+            context.Entry(ligneProduit).OriginalValues["RowVersion"] = ligneProduitDTO.RowVersion;
 
             await context.SaveChangesAsync();
         }

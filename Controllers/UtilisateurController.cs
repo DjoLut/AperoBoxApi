@@ -9,9 +9,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.DAO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class UtilisateurController : ControllerBase
@@ -27,6 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
         public async Task<ActionResult<IEnumerable<Utilisateur>>> getAllUtilisateurs()
         {
@@ -38,6 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
         {
@@ -71,6 +76,7 @@ namespace AperoBoxApi.Controllers
 		}*/
 
 		[HttpPost]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {
@@ -82,6 +88,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> modifierUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
         {
@@ -98,6 +105,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> suppressionUtilisateur(int id) 
         {

@@ -26,9 +26,10 @@ namespace AperoBoxApi.DTO
         [Required]
         [StringLength(100)]
         public string Username { get; set; }
-        public string Authorities { get; set; }
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
+        public byte[] RowVersion { get; set; }
+        public virtual ICollection<UtilisateurRoleDTO> UtilisateurRoles { get; set; }
         public virtual ICollection<CommandeDTO> Commande { get; set; }
         public virtual ICollection<CommentaireDTO> Commentaire { get; set; }
     }

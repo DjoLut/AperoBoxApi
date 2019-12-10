@@ -9,9 +9,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DAO;
 using AperoBoxApi.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class CommandeController : ControllerBase
@@ -27,6 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommandeDTO>))]
         public async Task<ActionResult<IEnumerable<Commande>>> getAllCommandes()
         {
@@ -38,6 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(201, Type = typeof(CommandeDTO))]
         public async Task<ActionResult> ajouterCommande([FromBody] CommandeDTO commandeDTO)
         {

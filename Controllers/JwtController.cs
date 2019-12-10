@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using AperoBoxApi.Models;
+using AperoBoxApi.Context;
+using AperoBoxApi.DTO;
+using AperoBoxApi.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+namespace AperoBoxApi.Controllers
+{
+    [AllowAnonymous]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class JwtController : ControllerBase
+    {
+        private readonly JwtIssuerOptions _jwtOptions;
+        private AperoBoxApi_dbContext context;
+
+        public JwtController(IOptions<JwtIssuerOptions> jwtOptions, AperoBoxApi_dbContext context)
+        {
+            this._jwtOptions = jwtOptions.Value;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        } 
+
+        [HttpPost]
+        [ProducesResponseType(201, Type = typeof(String))]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginModelDTO loginModelDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var repository = new AuthenticationRepository(this.context);
+            Utilisateur userFound = repository.GetUtilisateurs().FirstOrDefault(u => u.Username == loginModelDTO.Username && u.MotDePasse == loginModelDTO.Password);
+            if(userFound == null)
+                return Unauthorized();
+
+            var claims = new List<Claim> {
+                new Claim(JwtRegisteredClaimNames.Sub, userFound.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
+                new Claim(JwtRegisteredClaimNames.Iat, 
+                    ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(),
+                    ClaimValueTypes.Integer64)
+            };
+
+            //ADD role
+            if(userFound.UtilisateurRoles != null)
+            {
+                userFound.UtilisateurRoles.ToList().ForEach(u => claims.Add(new Claim("roles", u.Role.Nom)));
+            }
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: _jwtOptions.Issuer,
+                audience: _jwtOptions.Audience,
+                claims: claims,
+                notBefore: _jwtOptions.NotBefore,
+                expires: _jwtOptions.Expiration,
+                signingCredentials: _jwtOptions.SigningCredentials
+            );
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var response = new{
+                access_token = encodedJwt,
+                expires_in = (int)_jwtOptions.ValidFor.TotalSeconds,
+            };
+
+            return Ok(response);
+        }
+
+        private static long ToUnixEpochDate(DateTime date)
+            => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+    }
+
+}

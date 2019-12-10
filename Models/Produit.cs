@@ -17,7 +17,7 @@ namespace AperoBoxApi.Models
         public string Nom { get; set; }
         public DateTime? DatePeremption { get; set; }
         public byte Alcool { get; set; }
-
+        public byte[] RowVersion { get; set; }
         public virtual ICollection<LigneCommande> LigneCommande { get; set; }
         public virtual ICollection<LigneProduit> LigneProduit { get; set; }
     }

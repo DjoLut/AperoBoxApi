@@ -21,6 +21,7 @@ namespace AperoBoxApi.DTO
         public DateTime? DatePeremption { get; set; }
         [Required]
         public byte Alcool { get; set; }
+        public byte[] RowVersion { get; set; }
         public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
         public virtual ICollection<LigneProduitDTO> LigneProduit { get; set; }
     }

@@ -20,6 +20,7 @@ namespace AperoBoxApi.DTO
         [Required]
         [StringLength(100)]
         public string Pays { get; set; }
+        public byte[] RowVersion { get; set; }
         public virtual ICollection<CommandeDTO> Commande { get; set; }
         public virtual ICollection<UtilisateurDTO> Utilisateur { get; set; }
     }

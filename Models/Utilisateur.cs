@@ -19,11 +19,11 @@ namespace AperoBoxApi.Models
         public decimal? Telephone { get; set; }
         public decimal Gsm { get; set; }
         public string Username { get; set; }
-        public string Authorities { get; set; }
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
-        
+        public byte[] RowVersion { get; set; }
         public virtual Adresse AdresseNavigation { get; set; }
+        public virtual ICollection<UtilisateurRole> UtilisateurRoles { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }
         public virtual ICollection<Commentaire> Commentaire { get; set; }
     }

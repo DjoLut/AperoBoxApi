@@ -21,7 +21,7 @@ namespace AperoBoxApi.Models
         public string Photo { get; set; }
         public byte Affichable { get; set; }
         public DateTime DateCreation { get; set; }
-
+        public byte[] RowVersion { get; set; }
         public virtual ICollection<Commentaire> Commentaire { get; set; }
         public virtual ICollection<LigneCommande> LigneCommande { get; set; }
         public virtual ICollection<LigneProduit> LigneProduit { get; set; }

@@ -9,9 +9,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.DAO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class ProduitController : ControllerBase
@@ -27,6 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
         public async Task<ActionResult<IEnumerable<Produit>>> getAllProduits()
         {
@@ -38,6 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("id")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
         public async Task<ActionResult<Produit>> getProduitById(int id)
         {
@@ -49,6 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(201, Type = typeof(ProduitDTO))]
         public async Task<ActionResult> ajouterProduit([FromBody]ProduitDTO produitDTO)
         {

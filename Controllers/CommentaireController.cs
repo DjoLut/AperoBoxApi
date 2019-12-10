@@ -9,9 +9,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DAO;
 using AperoBoxApi.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class CommentaireController : ControllerBase
@@ -27,6 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
         public async Task<ActionResult<IEnumerable<Commentaire>>> getAllCommentaires()
         {
@@ -38,6 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
         public async Task<ActionResult<Commentaire>> getCommentaireById(int id)
         {
@@ -49,6 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {
@@ -60,6 +66,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> suppressionCommentaire(int id) 
         {

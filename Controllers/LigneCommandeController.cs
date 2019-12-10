@@ -8,9 +8,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.DAO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class LigneCommandeController : ControllerBase
@@ -26,6 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(201, Type = typeof(LigneCommandeDTO))]
         public async Task<ActionResult> ajouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
         {
@@ -37,6 +41,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(200, Type = typeof(LigneCommandeDTO))]
         public async Task<ActionResult> modifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
         {

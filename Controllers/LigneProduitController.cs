@@ -8,9 +8,12 @@ using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.DAO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AperoBoxApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public class LigneProduitController : ControllerBase
@@ -26,6 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "utilisateur")]
         [ProducesResponseType(201, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> ajouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
         {
@@ -37,6 +41,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> modifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
         {
@@ -54,6 +59,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> suppressionLigneProduit(int id)
         {

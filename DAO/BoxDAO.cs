@@ -48,6 +48,7 @@ namespace AperoBoxApi.DAO
             box.Photo = boxDTO.Photo;
             box.Affichable = boxDTO.Affichable;
             box.DateCreation = boxDTO.DateCreation;
+            context.Entry(box).OriginalValues["RowVersion"] = boxDTO.RowVersion;
 
             await context.SaveChangesAsync();
         }

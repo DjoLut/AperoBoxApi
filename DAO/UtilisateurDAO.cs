@@ -72,8 +72,7 @@ namespace AperoBoxApi.DAO
             utilisateur.Gsm = utilisateurDTO.Gsm;
             utilisateur.Username = utilisateurDTO.Username;
             utilisateur.Adresse = utilisateurDTO.Adresse;
-
-            //context.Entry(utilisateur).OriginalValues["RowVersion"] = utilisateurDTO.RowVersion;
+            context.Entry(utilisateur).OriginalValues["RowVersion"] = utilisateurDTO.RowVersion;
             await context.SaveChangesAsync();
         }
 

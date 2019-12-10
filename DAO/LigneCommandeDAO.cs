@@ -42,6 +42,7 @@ namespace AperoBoxApi.DAO
             ligneCommande.Commande = ligneCommandeDTO.Commande;
             ligneCommande.Box = ligneCommandeDTO.Box;
             ligneCommande.Produit = ligneCommandeDTO.Produit;
+            context.Entry(ligneCommande).OriginalValues["RowVersion"] = ligneCommandeDTO.RowVersion;
 
             await context.SaveChangesAsync();
         }

@@ -10,5 +10,6 @@ namespace AperoBoxApi.DTO
         public decimal? Quantite { get; set; }
         public decimal? Box { get; set; }
         public decimal? Produit { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }
