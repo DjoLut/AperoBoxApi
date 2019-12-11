@@ -9,7 +9,7 @@ namespace AperoBoxApi.Controllers
 {
     public class DesignTimeContextFactory : IDesignTimeDbContextFactory<AperoBoxApi_dbContext>
     {
-        private const string CONNECTION_STRING_CONFIG_KEY = "DesignTimeConnectionString";
+        private const string CONNECTION_STRING_CONFIG_KEY = "Connection";
         readonly string connectionString;
         public DesignTimeContextFactory()
         {

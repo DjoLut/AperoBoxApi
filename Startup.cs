@@ -20,7 +20,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-
+using AperoBoxApi.Controllers;
 
 namespace AperoBoxApi
 {
@@ -36,9 +36,10 @@ namespace AperoBoxApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AperoBoxApi_dbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Connection")));
-            services.AddControllers();
+            services.AddDbContext<AperoBoxApi_dbContext>((options) => {
+                string connectionString = new ConfigurationHelper("Connection").GetConnectionString();
+                options.UseSqlServer(connectionString);
+            });
 
             services.AddCors(options => 
                 options.AddPolicy("AllowClientOrigin",

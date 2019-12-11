@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AperoBoxApi.Models
 {
@@ -22,9 +23,8 @@ namespace AperoBoxApi.Models
         public string Username { get; set; }
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
+        [Timestamp]
         public byte[] RowVersion { get; set; }
-
-        //public string[] Roles { get; set; }
 
         public virtual Adresse AdresseNavigation { get; set; }
         public virtual ICollection<Commande> Commande { get; set; }

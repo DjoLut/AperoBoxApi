@@ -76,7 +76,7 @@ namespace AperoBoxApi.Controllers
 		}*/
 
 		[HttpPost]
-        [Authorize(Roles = Constants.Roles.Gestionnaire)]
+        [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {

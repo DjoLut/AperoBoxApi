@@ -29,7 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
+        [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneProduitDTO))]
         public async Task<ActionResult> ajouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
         {

@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
         public async Task<ActionResult<IEnumerable<Produit>>> getAllProduits()
         {

@@ -16,7 +16,6 @@ using System.Net;
 
 namespace AperoBoxApi.Controllers
 {
-    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class JwtController : ControllerBase
@@ -30,8 +29,10 @@ namespace AperoBoxApi.Controllers
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(201, Type = typeof(String))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(JwtToken),(int)HttpStatusCode.OK)]
         public async Task<IActionResult> Login([FromBody] LoginModelDTO loginModelDTO)
         {
             if (!ModelState.IsValid)

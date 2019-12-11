@@ -30,7 +30,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Constants.Roles.Admin)] 
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
         public async Task<ActionResult<IEnumerable<Box>>> getAllBoxes()
         {
@@ -65,6 +65,9 @@ namespace AperoBoxApi.Controllers
             Box box = await boxDAO.getBoxById(id);
             if(box == null)
                 return NotFound();
+
+            if(!User.IsInRole(Constants.Roles.Admin))
+                return Forbid();
 
             await boxDAO.modifierBox(box, boxDTO);
             return Ok(box);

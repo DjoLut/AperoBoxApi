@@ -54,7 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.Admin)]
+        [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(AdresseDTO))]
         public async Task<ActionResult> ajouterAdresse([FromBody]AdresseDTO adresseDTO)
         {

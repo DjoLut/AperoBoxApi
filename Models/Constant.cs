@@ -6,7 +6,7 @@ namespace AperoBoxApi.Models
         public static class Roles
         {
             public const string Admin = "admin";
-            public const string Gestionnaire = "utilisateur";
+            public const string Utilisateur = "utilisateur";
         }
     }
 }

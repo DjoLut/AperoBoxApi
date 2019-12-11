@@ -54,7 +54,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.Gestionnaire)]
+        [Authorize(Roles = Constants.Roles.Utilisateur)]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
         public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {

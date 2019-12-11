@@ -29,7 +29,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.Gestionnaire)] 
+        [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneCommandeDTO))]
         public async Task<ActionResult> ajouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
         {

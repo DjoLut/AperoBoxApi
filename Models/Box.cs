@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AperoBoxApi.Models
 {
@@ -21,6 +22,7 @@ namespace AperoBoxApi.Models
         public string Photo { get; set; }
         public byte Affichable { get; set; }
         public DateTime DateCreation { get; set; }
+        [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public virtual ICollection<Commentaire> Commentaire { get; set; }
