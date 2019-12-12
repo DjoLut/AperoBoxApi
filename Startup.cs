@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using AperoBoxApi.Controllers;
+using AperoBoxApi.Exceptions;
 
 namespace AperoBoxApi
 {
@@ -40,14 +41,7 @@ namespace AperoBoxApi
                 string connectionString = new ConfigurationHelper("Connection").GetConnectionString();
                 options.UseSqlServer(connectionString);
             });
-
-            services.AddCors(options => 
-                options.AddPolicy("AllowClientOrigin",
-                    builder => builder.WithOrigins("*")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowAnyOrigin())
-            );
+            services.AddControllers();
 
             //AutoMapper
             var mappingConfig = new MapperConfiguration(mc =>
@@ -57,12 +51,6 @@ namespace AperoBoxApi
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AperoBoxApi", Version = "v1" });
-            });
 
             string secretKey = "MaSuperCleSecreteANePasPublier";
             SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
@@ -103,9 +91,26 @@ namespace AperoBoxApi
                         options.SaveToken = true;
                     });
 
-            services.AddMvc(option => option.EnableEndpointRouting = false)
+            services.AddCors(options => 
+                options.AddPolicy("AllowClientOrigin",
+                    builder => builder.WithOrigins("*")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader())
+            );
+
+            services.AddMvc((options) =>
+            {
+                options.Filters.Add(typeof(PersonnalExceptionFilter));
+                options.EnableEndpointRouting = false;
+            })
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AperoBoxApi", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,12 +125,6 @@ namespace AperoBoxApi
                 app.UseHsts();
             }
 
-            app.UseCors(builder =>
-                builder.WithOrigins("*")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-            );
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger(c=>c.SerializeAsV2=true);
 
@@ -136,7 +135,14 @@ namespace AperoBoxApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            app.UseCors(builder =>
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
             app.UseHttpsRedirection();
+
             app.UseMvc();
         }
     }

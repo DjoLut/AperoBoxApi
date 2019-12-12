@@ -100,8 +100,12 @@ namespace AperoBoxApi.Controllers
             if(utilisateur == null)
                 return NotFound();
 
+            //TEST SI ON VEUT SE MODIFIER SOI MEME ???
+            if (!User.IsInRole(Constants.Roles.Admin))
+                return Forbid();
+
             await utilisateurDAO.modifierUtilisateur(utilisateur, utilisateurDTO);
-            return Ok(utilisateur);
+            return Ok(utilisateurDTO);
         }
 
         [HttpDelete("{id}")]

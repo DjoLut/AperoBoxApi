@@ -70,7 +70,7 @@ namespace AperoBoxApi.Controllers
                 return Forbid();
 
             await boxDAO.modifierBox(box, boxDTO);
-            return Ok(box);
+            return Ok(boxDTO);
         }
 
         [HttpDelete("{id}")]
