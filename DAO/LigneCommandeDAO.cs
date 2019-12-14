@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
-using AperoBoxApi.Exceptions;
+using AperoBoxApi.ExceptionsPackage;
 using AperoBoxApi.DTO;
 
 namespace AperoBoxApi.DAO

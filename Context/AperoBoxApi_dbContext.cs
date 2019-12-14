@@ -52,8 +52,9 @@ namespace AperoBoxApi.Context
                     .IsUnicode(false);
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Rue)
                     .IsRequired()
@@ -94,8 +95,9 @@ namespace AperoBoxApi.Context
                 entity.Property(e => e.Promotion).HasColumnType("numeric(18, 2)");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Tva)
                     .HasColumnName("TVA")
@@ -118,8 +120,9 @@ namespace AperoBoxApi.Context
                 entity.Property(e => e.Promotion).HasColumnType("numeric(18, 2)");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Utilisateur).HasColumnType("numeric(18, 0)");
 
@@ -150,8 +153,9 @@ namespace AperoBoxApi.Context
                 entity.Property(e => e.DateCreation).HasColumnType("date");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Texte)
                     .IsRequired()
@@ -191,8 +195,9 @@ namespace AperoBoxApi.Context
                 entity.Property(e => e.Quantite).HasColumnType("numeric(3, 0)");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.HasOne(d => d.BoxNavigation)
                     .WithMany(p => p.LigneCommande)
@@ -227,8 +232,9 @@ namespace AperoBoxApi.Context
                 entity.Property(e => e.Quantite).HasColumnType("numeric(3, 0)");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.HasOne(d => d.BoxNavigation)
                     .WithMany(p => p.LigneProduit)
@@ -264,8 +270,9 @@ namespace AperoBoxApi.Context
                     .HasColumnType("numeric(18, 2)");
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Tva)
                     .HasColumnName("TVA")
@@ -325,8 +332,9 @@ namespace AperoBoxApi.Context
                     .IsUnicode(false);
 
                 entity.Property(e => e.RowVersion)
-                    .IsRequired()
-                    .IsRowVersion();
+                    .IsConcurrencyToken()
+                    .IsRequired() 
+                    .ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.Telephone).HasColumnType("numeric(18, 0)");
 

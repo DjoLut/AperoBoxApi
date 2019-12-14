@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
 using AperoBoxApi.DTO;
-using AperoBoxApi.Exceptions;
+using AperoBoxApi.ExceptionsPackage;
 
 namespace AperoBoxApi.DAO
 {

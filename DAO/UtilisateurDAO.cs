@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
 using AperoBoxApi.DTO;
-using AperoBoxApi.Exceptions;
+using AperoBoxApi.ExceptionsPackage;
+using AutoMapper;
 
 namespace AperoBoxApi.DAO
 {
@@ -24,14 +25,16 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .Include(u => u.UtilisateurRole)
                 .ToListAsync();
         }
 
-        public async Task<Utilisateur> getUtilisateurById(int id)
+        public async Task<Utilisateur> GetUtilisateurById(int id)
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
@@ -40,6 +43,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u=> u.Commentaire)
                 .Include(u => u.Commande)
+                .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u=> u.Username == username);
         }
 
@@ -48,6 +52,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u => u.Mail == mail);
         }
 
@@ -61,8 +66,9 @@ namespace AperoBoxApi.DAO
             return utilisateur;
         }
 
-        public async Task modifierUtilisateur(Utilisateur utilisateur, UtilisateurDTO utilisateurDTO)
+        public async Task ModifierUtilisateur(Utilisateur utilisateur, UtilisateurDTO utilisateurDTO)
         {
+            //utilisateur = mapper.Map<UtilisateurDTO, Utilisateur>(utilisateurDTO, utilisateur);
             utilisateur.Id = utilisateurDTO.Id;
             utilisateur.Nom = utilisateurDTO.Nom;
             utilisateur.Prenom = utilisateurDTO.Prenom;
@@ -91,6 +97,12 @@ namespace AperoBoxApi.DAO
             {
                 foreach(var commentaire in utilisateur.Commentaire)
                     context.Remove(commentaire);
+            }
+
+            if(utilisateur.UtilisateurRole != null)
+            {
+                foreach(var utilisateurRole in utilisateur.UtilisateurRole)
+                    context.Remove(utilisateur);
             }
 
             context.Remove(utilisateur);

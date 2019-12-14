@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using AperoBoxApi.Controllers;
-using AperoBoxApi.Exceptions;
+using AperoBoxApi.ExceptionsPackage;
 
 namespace AperoBoxApi
 {
@@ -41,7 +41,7 @@ namespace AperoBoxApi
                 string connectionString = new ConfigurationHelper("Connection").GetConnectionString();
                 options.UseSqlServer(connectionString);
             });
-            services.AddControllers();
+            //services.AddControllers();
 
             //AutoMapper
             var mappingConfig = new MapperConfiguration(mc =>
@@ -103,7 +103,7 @@ namespace AperoBoxApi
                 options.Filters.Add(typeof(PersonnalExceptionFilter));
                 options.EnableEndpointRouting = false;
             })
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                //.AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // Register the Swagger generator, defining 1 or more Swagger documents

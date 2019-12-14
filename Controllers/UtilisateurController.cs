@@ -46,7 +46,7 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
         {
-            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
             
@@ -87,25 +87,26 @@ namespace AperoBoxApi.Controllers
             return Created($"api/Utilisateur/{utilisateur.Id}", mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult> modifierUtilisateur([FromBody] UtilisateurDTO utilisateurDTO)
+        public async Task<ActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            int id = Decimal.ToInt32(utilisateurDTO.Id);
-            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
+            //int id = Decimal.ToInt32(utilisateurDTO.Id);
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
 
             //TEST SI ON VEUT SE MODIFIER SOI MEME ???
-            if (!User.IsInRole(Constants.Roles.Admin))
-                return Forbid();
+            //int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);
+            //if (utilisateur.Id != userId && !User.IsInRole(Constants.Roles.Admin))
+                //return Forbid();
 
-            await utilisateurDAO.modifierUtilisateur(utilisateur, utilisateurDTO);
-            return Ok(utilisateurDTO);
+            await utilisateurDAO.ModifierUtilisateur(utilisateur, utilisateurDTO);
+            return Ok(utilisateur);
         }
 
         [HttpDelete("{id}")]
@@ -113,7 +114,7 @@ namespace AperoBoxApi.Controllers
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
         public async Task<ActionResult> suppressionUtilisateur(int id) 
         {
-            Utilisateur utilisateur = await utilisateurDAO.getUtilisateurById(id);
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
             

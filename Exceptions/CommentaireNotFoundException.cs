@@ -1,6 +1,6 @@
 using System;
 
-namespace AperoBoxApi.Exceptions
+namespace AperoBoxApi.ExceptionsPackage
 {
     public class CommentaireNotFoundException : Exception
     {

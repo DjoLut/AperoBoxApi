@@ -41,6 +41,18 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<BoxDTO>>(boxes));
         }
 
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        public async Task<ActionResult<Box>> getBoxById(int id)
+        {
+            Box box = await boxDAO.getBoxById(id);
+            if (box == null)
+                return NotFound();
+
+            return Ok(mapper.Map<BoxDTO>(box));
+        }
+
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(BoxDTO))]
