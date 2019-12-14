@@ -90,7 +90,7 @@ namespace AperoBoxApi.Controllers
         [HttpPut("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
+        public async Task<IActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -101,12 +101,12 @@ namespace AperoBoxApi.Controllers
                 return NotFound();
 
             //TEST SI ON VEUT SE MODIFIER SOI MEME ???
-            //int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);
-            //if (utilisateur.Id != userId && !User.IsInRole(Constants.Roles.Admin))
-                //return Forbid();
+            int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);
+            if (!User.IsInRole(Constants.Roles.Admin))
+                return Forbid();
 
             await utilisateurDAO.ModifierUtilisateur(utilisateur, utilisateurDTO);
-            return Ok(utilisateur);
+            return Ok(utilisateurDTO);
         }
 
         [HttpDelete("{id}")]

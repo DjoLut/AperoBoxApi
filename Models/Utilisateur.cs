@@ -23,7 +23,6 @@ namespace AperoBoxApi.Models
         public string Username { get; set; }
         public string MotDePasse { get; set; }
         public decimal Adresse { get; set; }
-        [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public virtual Adresse AdresseNavigation { get; set; }
