@@ -19,8 +19,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class CommentaireController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private CommentaireDAO commentaireDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly CommentaireDAO commentaireDAO;
         private readonly IMapper mapper;
         public CommentaireController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -32,9 +32,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
-        public async Task<ActionResult<IEnumerable<Commentaire>>> getAllCommentaires()
+        public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentaires()
         {
-            List<Commentaire> commentaires = await commentaireDAO.getAllCommentaires();
+            List<Commentaire> commentaires = await commentaireDAO.GetAllCommentaires();
             if (commentaires == null)
                 return NotFound();
 
@@ -44,9 +44,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
-        public async Task<ActionResult<Commentaire>> getCommentaireById(int id)
+        public async Task<ActionResult<Commentaire>> GetCommentaireById(int id)
         {
-            Commentaire commentaire = await commentaireDAO.getCommentaireById(id);
+            Commentaire commentaire = await commentaireDAO.GetCommentaireById(id);
             if (commentaire == null)
                 return NotFound();
 
@@ -56,25 +56,25 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
-        public async Task<ActionResult> ajouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
+        public async Task<ActionResult> AjouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             Commentaire commentaire = mapper.Map<Commentaire>(commentaireDTO);
-            commentaire = await commentaireDAO.ajouterCommentaire(commentaire);
+            commentaire = await commentaireDAO.AjouterCommentaire(commentaire);
             return Created($"api/Commentaire/{commentaire.Id}", mapper.Map<CommentaireDTO>(commentaire));
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(CommentaireDTO))]
-        public async Task<ActionResult> suppressionCommentaire(int id) 
+        public async Task<ActionResult> SuppressionCommentaire(int id) 
         {
-            Commentaire commentaire = await commentaireDAO.getCommentaireById(id);
+            Commentaire commentaire = await commentaireDAO.GetCommentaireById(id);
             if(commentaire == null)
                 return NotFound();
             
-            await commentaireDAO.suppressionCommentaire(commentaire);
+            await commentaireDAO.SuppressionCommentaire(commentaire);
             return Ok();
         }
     }

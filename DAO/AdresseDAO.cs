@@ -11,14 +11,14 @@ namespace AperoBoxApi.DAO
 {
     public class AdresseDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public AdresseDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Adresse>> getAllAdresses()
+        public async Task<List<Adresse>> GetAllAdresses()
         {
             return await context.Adresse
                 .Include(a => a.Utilisateur)
@@ -26,7 +26,7 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
 
-        public async Task<Adresse> getAdresseById(int id)
+        public async Task<Adresse> GetAdresseById(int id)
         {
             return await context.Adresse
                 .Include(a => a.Utilisateur)
@@ -34,7 +34,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<Adresse> ajouterAdresse(Adresse adresse)
+        public async Task<Adresse> AjouterAdresse(Adresse adresse)
         {
             if (adresse == null)
                 throw new AdresseNotFoundException();

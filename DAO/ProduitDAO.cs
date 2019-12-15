@@ -11,14 +11,14 @@ namespace AperoBoxApi.DAO
 {
     public class ProduitDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public ProduitDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Produit>> getAllProduits()
+        public async Task<List<Produit>> GetAllProduits()
         {
             return await context.Produit
                 .Include(p => p.LigneCommande)
@@ -26,7 +26,7 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
         
-        public async Task<Produit> getProduitById(int id)
+        public async Task<Produit> GetProduitById(int id)
         {
             return await context.Produit
                 .Include(p => p.LigneCommande)
@@ -34,7 +34,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Produit> ajouterProduit(Produit produit)
+        public async Task<Produit> AjouterProduit(Produit produit)
         {
             if (produit == null)
                 throw new ProduitNotFoundException();

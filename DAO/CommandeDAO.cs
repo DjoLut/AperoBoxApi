@@ -11,21 +11,21 @@ namespace AperoBoxApi.DAO
 {
     public class CommandeDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public CommandeDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Commande>> getAllCommandes()
+        public async Task<List<Commande>> GetAllCommandes()
         {
             return await context.Commande
                 .Include(c => c.LigneCommande)
                 .ToListAsync();
         }
 
-        public async Task<Commande> ajouterCommande(Commande commande)
+        public async Task<Commande> AjouterCommande(Commande commande)
         {
             if (commande == null)
                 throw new CommandeNotFoundException();

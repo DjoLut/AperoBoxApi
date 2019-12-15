@@ -19,8 +19,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class AdresseController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private AdresseDAO adresseDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly AdresseDAO adresseDAO;
         private readonly IMapper mapper;
         public AdresseController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -32,9 +32,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
-        public async Task<ActionResult<IEnumerable<Adresse>>> getAllAdresses()
+        public async Task<ActionResult<IEnumerable<Adresse>>> GetAllAdresses()
         {
-            List<Adresse> adresses = await adresseDAO.getAllAdresses();
+            List<Adresse> adresses = await adresseDAO.GetAllAdresses();
             if (adresses == null)
                 return NotFound();
 
@@ -44,9 +44,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
-        public async Task<ActionResult<Adresse>> getAdresseById(int id)
+        public async Task<ActionResult<Adresse>> GetAdresseById(int id)
         {
-            Adresse adresse = await adresseDAO.getAdresseById(id);
+            Adresse adresse = await adresseDAO.GetAdresseById(id);
             if (adresse == null)
                 return NotFound();
 
@@ -56,12 +56,12 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(AdresseDTO))]
-        public async Task<ActionResult> ajouterAdresse([FromBody]AdresseDTO adresseDTO)
+        public async Task<ActionResult> AjouterAdresse([FromBody]AdresseDTO adresseDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             Adresse adresse = mapper.Map<Adresse>(adresseDTO);
-            adresse = await adresseDAO.ajouterAdresse(adresse);
+            adresse = await adresseDAO.AjouterAdresse(adresse);
             return Created($"api/Adresse/{adresse.Id}", mapper.Map<AdresseDTO>(adresse));
         }
     }

@@ -19,8 +19,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class BoxController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private BoxDAO boxDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly BoxDAO boxDAO;
         private readonly IMapper mapper;
         public BoxController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -32,9 +32,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
-        public async Task<ActionResult<IEnumerable<Box>>> getAllBoxes()
+        public async Task<ActionResult<IEnumerable<Box>>> GetAllBoxes()
         {
-            List<Box> boxes = await boxDAO.getAllBoxes();
+            List<Box> boxes = await boxDAO.GetAllBoxes();
             if (boxes == null)
                 return NotFound();
 
@@ -44,9 +44,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
-        public async Task<ActionResult<Box>> getBoxById(int id)
+        public async Task<ActionResult<Box>> GetBoxById(int id)
         {
-            Box box = await boxDAO.getBoxById(id);
+            Box box = await boxDAO.GetBoxById(id);
             if (box == null)
                 return NotFound();
 
@@ -56,45 +56,45 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(BoxDTO))]
-        public async Task<ActionResult> ajouterBox([FromBody] BoxDTO boxDTO)
+        public async Task<ActionResult> AjouterBox([FromBody] BoxDTO boxDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             Box box = mapper.Map<Box>(boxDTO);
-            box = await boxDAO.ajouterBox(box);
+            box = await boxDAO.AjouterBox(box);
             return Created($"api/Box/{box.Id}", mapper.Map<BoxDTO>(box));
         }
 
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
-        public async Task<ActionResult> modifierBox([FromBody] BoxDTO boxDTO)
+        public async Task<ActionResult> ModifierBox([FromBody] BoxDTO boxDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
             int id = Decimal.ToInt32(boxDTO.Id);
-            Box box = await boxDAO.getBoxById(id);
+            Box box = await boxDAO.GetBoxById(id);
             if(box == null)
                 return NotFound();
 
             if(!User.IsInRole(Constants.Roles.Admin))
                 return Forbid();
 
-            await boxDAO.modifierBox(box, boxDTO);
+            await boxDAO.ModifierBox(box, boxDTO);
             return Ok(boxDTO);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
-        public async Task<ActionResult> suppressionBox(int id) 
+        public async Task<ActionResult> SuppressionBox(int id) 
         {
-            Box box = await boxDAO.getBoxById(id);
+            Box box = await boxDAO.GetBoxById(id);
             if(box == null)
                 return NotFound();
             
-            await boxDAO.suppressionBox(box);
+            await boxDAO.SuppressionBox(box);
             return Ok();
         }
         

@@ -12,20 +12,20 @@ namespace AperoBoxApi.DAO
 {
     public class LigneCommandeDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public LigneCommandeDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<LigneCommande> getLigneCommandeById(int id)
+        public async Task<LigneCommande> GetLigneCommandeById(int id)
         {
             return await context.LigneCommande
                 .FirstOrDefaultAsync(lc => lc.Id == id);
         }
 
-        public async Task<LigneCommande> ajouterLigneCommande(LigneCommande ligneCommande)
+        public async Task<LigneCommande> AjouterLigneCommande(LigneCommande ligneCommande)
         {
             if (ligneCommande == null)
                 throw new LigneCommandeNotFoundException();
@@ -35,7 +35,7 @@ namespace AperoBoxApi.DAO
             return ligneCommande;
         }
 
-        public async Task modifierLigneCommande(LigneCommande ligneCommande, LigneCommandeDTO ligneCommandeDTO)
+        public async Task ModifierLigneCommande(LigneCommande ligneCommande, LigneCommandeDTO ligneCommandeDTO)
         {
             ligneCommande.Id = ligneCommandeDTO.Id;
             ligneCommande.Commande = ligneCommandeDTO.Commande;

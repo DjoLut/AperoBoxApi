@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AperoBoxApi.Models
 {
     public class AuthenticationRepository {
-        private  AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
         public AuthenticationRepository(AperoBoxApi_dbContext context) {
             this.context = context;
         }

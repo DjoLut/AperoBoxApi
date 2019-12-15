@@ -18,8 +18,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class LigneProduitController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private LigneProduitDAO ligneProduitDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly LigneProduitDAO ligneProduitDAO;
         private readonly IMapper mapper;
         public LigneProduitController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -31,29 +31,29 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneProduitDTO))]
-        public async Task<ActionResult> ajouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
+        public async Task<ActionResult> AjouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             LigneProduit ligneProduit = mapper.Map<LigneProduit>(ligneProduitDTO);
-            ligneProduit = await ligneProduitDAO.ajouterLigneProduit(ligneProduit);
+            ligneProduit = await ligneProduitDAO.AjouterLigneProduit(ligneProduit);
             return Created($"api/LigneProduit/{ligneProduit.Id}", mapper.Map<LigneProduitDTO>(ligneProduit));
         }
 
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
-        public async Task<ActionResult> modifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
+        public async Task<ActionResult> ModifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             int id = Decimal.ToInt32(ligneProduitDTO.Id);
-            LigneProduit ligneProduit = await ligneProduitDAO.getLigneProduitById(id);
+            LigneProduit ligneProduit = await ligneProduitDAO.GetLigneProduitById(id);
             if(ligneProduit == null)
                 return NotFound();
 
-            await ligneProduitDAO.modifierLigneProduit(ligneProduit, ligneProduitDTO);
+            await ligneProduitDAO.ModifierLigneProduit(ligneProduit, ligneProduitDTO);
 
             return Ok(ligneProduit);
         }
@@ -61,13 +61,13 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
-        public async Task<ActionResult> suppressionLigneProduit(int id)
+        public async Task<ActionResult> SuppressionLigneProduit(int id)
         {
-            LigneProduit ligneProduit = await ligneProduitDAO.getLigneProduitById(id);
+            LigneProduit ligneProduit = await ligneProduitDAO.GetLigneProduitById(id);
             if(ligneProduit == null)
                 return NotFound();
 
-            await ligneProduitDAO.suppressionLigneProduit(ligneProduit);
+            await ligneProduitDAO.SuppressionLigneProduit(ligneProduit);
             return Ok();
         }
     }

@@ -12,20 +12,20 @@ namespace AperoBoxApi.DAO
 {
     public class LigneProduitDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public LigneProduitDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<LigneProduit> getLigneProduitById(int id)
+        public async Task<LigneProduit> GetLigneProduitById(int id)
         {
             return await context.LigneProduit
                 .FirstOrDefaultAsync(lp => lp.Id == id);
         }
 
-        public async Task<LigneProduit> ajouterLigneProduit(LigneProduit ligneProduit)
+        public async Task<LigneProduit> AjouterLigneProduit(LigneProduit ligneProduit)
         {
             if (ligneProduit == null)
                 throw new LigneProduitNotFoundException();
@@ -35,7 +35,7 @@ namespace AperoBoxApi.DAO
             return ligneProduit;
         }
 
-        public async Task modifierLigneProduit(LigneProduit ligneProduit, LigneProduitDTO ligneProduitDTO)
+        public async Task ModifierLigneProduit(LigneProduit ligneProduit, LigneProduitDTO ligneProduitDTO)
         {
             ligneProduit.Id = ligneProduitDTO.Id;
             context.Entry(ligneProduit).OriginalValues["RowVersion"] = ligneProduitDTO.RowVersion;
@@ -43,7 +43,7 @@ namespace AperoBoxApi.DAO
             await context.SaveChangesAsync();
         }
 
-        public async Task suppressionLigneProduit(LigneProduit ligneProduit)
+        public async Task SuppressionLigneProduit(LigneProduit ligneProduit)
         {
             if(ligneProduit == null)
                 throw new LigneProduitNotFoundException();

@@ -18,8 +18,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class LigneCommandeController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private LigneCommandeDAO ligneCommandeDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly LigneCommandeDAO ligneCommandeDAO;
         private readonly IMapper mapper;
         public LigneCommandeController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -31,29 +31,29 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneCommandeDTO))]
-        public async Task<ActionResult> ajouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
+        public async Task<ActionResult> AjouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             LigneCommande ligneCommande = mapper.Map<LigneCommande>(ligneCommandeDTO);
-            ligneCommande = await ligneCommandeDAO.ajouterLigneCommande(ligneCommande);
+            ligneCommande = await ligneCommandeDAO.AjouterLigneCommande(ligneCommande);
             return Created($"api/LigneCommande/{ligneCommande.Id}", mapper.Map<LigneCommandeDTO>(ligneCommande));
         }
 
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneCommandeDTO))]
-        public async Task<ActionResult> modifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
+        public async Task<ActionResult> ModifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             int id = Decimal.ToInt32(ligneCommandeDTO.Id);
-            LigneCommande ligneCommande = await ligneCommandeDAO.getLigneCommandeById(id);
+            LigneCommande ligneCommande = await ligneCommandeDAO.GetLigneCommandeById(id);
             if(ligneCommande == null)
                 return NotFound();
 
-            await ligneCommandeDAO.modifierLigneCommande(ligneCommande, ligneCommandeDTO);
+            await ligneCommandeDAO.ModifierLigneCommande(ligneCommande, ligneCommandeDTO);
             return Ok(ligneCommande);
         }
     }

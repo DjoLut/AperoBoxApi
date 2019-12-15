@@ -20,8 +20,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class UtilisateurController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private UtilisateurDAO utilisateurDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly UtilisateurDAO utilisateurDAO;
         private readonly IMapper mapper;
         public UtilisateurController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -33,9 +33,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
-        public async Task<ActionResult<IEnumerable<Utilisateur>>> getAllUtilisateurs()
+        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetAllUtilisateurs()
         {
-            List<Utilisateur> utilisateurs = await utilisateurDAO.getAllUtilisateurs();
+            List<Utilisateur> utilisateurs = await utilisateurDAO.GetAllUtilisateurs();
             if (utilisateurs == null)
                 return NotFound();
 
@@ -45,7 +45,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult<Utilisateur>> getUtilisateurById(int id)
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurById(int id)
         {
             Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
@@ -56,9 +56,9 @@ namespace AperoBoxApi.Controllers
 
         /*[HttpGet("{username}")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult<Utilisateur>> getUtilisateurByUsername(string username)
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurByUsername(string username)
         {
-          Utilisateur utilisateur = await utilisateurDAO.getUtilisateurByUsername(username);
+          Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurByUsername(username);
           if (utilisateur == null)
             return NotFound();
 
@@ -67,9 +67,9 @@ namespace AperoBoxApi.Controllers
 
 		[HttpGet("{mail}")]
 		[ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-		public async Task<ActionResult<Utilisateur>> getUtilisateurByMail(string mail)
+		public async Task<ActionResult<Utilisateur>> GetUtilisateurByMail(string mail)
 		{
-			Utilisateur utilisateur = await utilisateurDAO.getUtilisateurByMail(mail);
+			Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurByMail(mail);
 			if (utilisateur == null)
 			  return NotFound();
 
@@ -79,14 +79,14 @@ namespace AperoBoxApi.Controllers
 		[HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult> ajouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
+        public async Task<ActionResult> AjouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             utilisateurDTO.MotDePasse = Bcrypt.HashPassword(utilisateurDTO.MotDePasse);
             Utilisateur utilisateur = mapper.Map<Utilisateur>(utilisateurDTO);
-            utilisateur = await utilisateurDAO.ajouterUtilisateur(utilisateur);
+            utilisateur = await utilisateurDAO.AjouterUtilisateur(utilisateur);
             return Created($"api/Utilisateur/{utilisateur.Id}", mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
@@ -115,13 +115,13 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<ActionResult> suppressionUtilisateur(int id) 
+        public async Task<ActionResult> SuppressionUtilisateur(int id) 
         {
             Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
             
-            await utilisateurDAO.suppressionUtilisateur(utilisateur);
+            await utilisateurDAO.SuppressionUtilisateur(utilisateur);
             return Ok();
         }
 

@@ -12,14 +12,14 @@ namespace AperoBoxApi.DAO
 {
     public class BoxDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public BoxDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Box>> getAllBoxes()
+        public async Task<List<Box>> GetAllBoxes()
         {
             return await context.Box
                 .Include(b => b.Commentaire)
@@ -28,7 +28,7 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
 
-        public async Task<Box> getBoxById(int id)
+        public async Task<Box> GetBoxById(int id)
         {
             return await context.Box
                 .Include(b => b.Commentaire)
@@ -37,7 +37,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task modifierBox(Box box, BoxDTO boxDTO)
+        public async Task ModifierBox(Box box, BoxDTO boxDTO)
         {
             box.Id = boxDTO.Id;
             box.Nom = boxDTO.Nom;
@@ -53,7 +53,7 @@ namespace AperoBoxApi.DAO
             await context.SaveChangesAsync();
         }
 
-        public async Task<Box> ajouterBox(Box box)
+        public async Task<Box> AjouterBox(Box box)
         {
             if (box == null)
                 throw new BoxNotFoundException();
@@ -63,7 +63,7 @@ namespace AperoBoxApi.DAO
             return box;
         }
 
-        public async Task suppressionBox(Box box)
+        public async Task SuppressionBox(Box box)
         {
             if(box == null)
                 throw new BoxNotFoundException();

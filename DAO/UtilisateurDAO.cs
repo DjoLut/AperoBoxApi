@@ -13,14 +13,14 @@ namespace AperoBoxApi.DAO
 {
     public class UtilisateurDAO
     {
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public UtilisateurDAO(AperoBoxApi_dbContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Utilisateur>> getAllUtilisateurs()
+        public async Task<List<Utilisateur>> GetAllUtilisateurs()
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
@@ -38,7 +38,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Utilisateur> getUtilisateurByUsername(string username)
+        public async Task<Utilisateur> GetUtilisateurByUsername(string username)
         {
             return await context.Utilisateur
                 .Include(u=> u.Commentaire)
@@ -47,7 +47,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(u=> u.Username == username);
         }
 
-        public async Task<Utilisateur> getUtilisateurByMail(string mail)
+        public async Task<Utilisateur> GetUtilisateurByMail(string mail)
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
@@ -56,7 +56,7 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(u => u.Mail == mail);
         }
 
-        public async Task<Utilisateur> ajouterUtilisateur(Utilisateur utilisateur)
+        public async Task<Utilisateur> AjouterUtilisateur(Utilisateur utilisateur)
         {
             if (utilisateur == null)
                 throw new UtilisateurNotFoundException();
@@ -82,7 +82,7 @@ namespace AperoBoxApi.DAO
             await context.SaveChangesAsync();
         }
 
-        public async Task suppressionUtilisateur(Utilisateur utilisateur)
+        public async Task SuppressionUtilisateur(Utilisateur utilisateur)
         {
             if(utilisateur == null)
                 throw new UtilisateurNotFoundException();

@@ -21,7 +21,7 @@ namespace AperoBoxApi.Controllers
     public class JwtController : ControllerBase
     {
         private readonly JwtIssuerOptions _jwtOptions;
-        private AperoBoxApi_dbContext context;
+        private readonly AperoBoxApi_dbContext context;
 
         public JwtController(IOptions<JwtIssuerOptions> jwtOptions, AperoBoxApi_dbContext context)
         {

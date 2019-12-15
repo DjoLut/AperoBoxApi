@@ -19,8 +19,8 @@ namespace AperoBoxApi.Controllers
     [Route("api/[controller]")]
     public class ProduitController : ControllerBase
     {
-        private AperoBoxApi_dbContext context;
-        private ProduitDAO produitDAO;
+        private readonly AperoBoxApi_dbContext context;
+        private readonly ProduitDAO produitDAO;
         private readonly IMapper mapper;
         public ProduitController(AperoBoxApi_dbContext context, IMapper mapper)
         {
@@ -32,9 +32,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
-        public async Task<ActionResult<IEnumerable<Produit>>> getAllProduits()
+        public async Task<ActionResult<IEnumerable<Produit>>> GetAllProduits()
         {
-            List<Produit> produits = await produitDAO.getAllProduits();
+            List<Produit> produits = await produitDAO.GetAllProduits();
             if (produits == null)
                 return NotFound();
 
@@ -44,9 +44,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet("id")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
-        public async Task<ActionResult<Produit>> getProduitById(int id)
+        public async Task<ActionResult<Produit>> GetProduitById(int id)
         {
-            Produit produit = await produitDAO.getProduitById(id);
+            Produit produit = await produitDAO.GetProduitById(id);
             if (produit == null)
                 return NotFound();
 
@@ -56,12 +56,12 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(ProduitDTO))]
-        public async Task<ActionResult> ajouterProduit([FromBody]ProduitDTO produitDTO)
+        public async Task<ActionResult> AjouterProduit([FromBody]ProduitDTO produitDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             Produit produit = mapper.Map<Produit>(produitDTO);
-            produit = await produitDAO.ajouterProduit(produit);
+            produit = await produitDAO.AjouterProduit(produit);
             return Created($"api/Produit/{produit.Id}", mapper.Map<ProduitDTO>(produit));
         }
     }
