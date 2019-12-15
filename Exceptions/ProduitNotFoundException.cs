@@ -2,10 +2,13 @@ using System;
 
 namespace AperoBoxApi.ExceptionsPackage
 {
-    public class ProduitNotFoundException : Exception
+    public class ProduitNotFoundException : PersonnalException
     {
-        /*public ProduitNotFoundException()
-            : base("Produit non trouvé");*/
+        public ProduitNotFoundException()
+            : base("Produit non trouvé") { }
+
+        public ProduitNotFoundException(string message)
+            : base(message) { }
     }
     
 }

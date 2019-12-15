@@ -18,10 +18,11 @@ GO
 
 select * from [apero].[Adresse];
 
+/* MDP : 123 */
 INSERT INTO [apero].[Utilisateur]([Nom], [Prenom], [DateNaissance], [Mail], [GSM], [Username], [MotDePasse], [Adresse])
-	VALUES('Philipin', 'Pierre', PARSE('02/03/1995' AS datetime2 USING 'fr-FR'), 'pierre.philipin@hotmail.com', 0488654916, 'philipinPierre', '123', 1)
+	VALUES('Philipin', 'Pierre', PARSE('02/03/1995' AS datetime2 USING 'fr-FR'), 'pierre.philipin@hotmail.com', 0488654916, 'philipinPierre', '$2y$10$ClFUhcCncI/YRFFJZMjvRu5HukfwbkgQ.4/tbtCCgfEh32d7lHRte', 1)
 INSERT INTO [apero].[Utilisateur]([Nom], [Prenom], [DateNaissance], [Mail], [GSM], [Username], [MotDePasse], [Adresse])
-	VALUES('Lutgen', 'Jordan', PARSE('15/08/1995' AS datetime2 USING 'fr-FR'), 'jordan.lutgen@hotmail.com', 0475872133, 'jordanLutgen', '123', 2)
+	VALUES('Lutgen', 'Jordan', PARSE('15/08/1995' AS datetime2 USING 'fr-FR'), 'jordan.lutgen@hotmail.com', 0475872133, 'jordanLutgen', '$2y$10$ClFUhcCncI/YRFFJZMjvRu5HukfwbkgQ.4/tbtCCgfEh32d7lHRte', 2)
 GO
 
 select * from [apero].[Utilisateur];

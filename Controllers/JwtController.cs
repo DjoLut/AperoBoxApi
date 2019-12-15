@@ -39,7 +39,8 @@ namespace AperoBoxApi.Controllers
                 return BadRequest(ModelState);
 
             var repository = new AuthenticationRepository(this.context);
-            Utilisateur userFound = repository.GetUtilisateurs().FirstOrDefault(u => u.Username == loginModelDTO.Username && u.MotDePasse == loginModelDTO.Password);
+            //Utilisateur userFound = repository.GetUtilisateurs().FirstOrDefault(u => u.Username == loginModelDTO.Username && u.MotDePasse == loginModelDTO.Password);
+            Utilisateur userFound = repository.GetUtilisateurs().FirstOrDefault(u => u.Username == loginModelDTO.Username && Bcrypt.Verify(loginModelDTO.Password, u.MotDePasse));
             if(userFound == null)
                 return Unauthorized();
 

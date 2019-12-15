@@ -70,3 +70,4 @@ C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\net
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Lutgen\Desktop\3emeIGNamurBis\SmartCity\Api\AperoBoxApi\bin\Release\netcoreapp3.0\BCrypt.Net-Next.dll

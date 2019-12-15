@@ -8,6 +8,7 @@ using AperoBoxApi.Models;
 using AperoBoxApi.Context;
 using AperoBoxApi.DTO;
 using AperoBoxApi.DAO;
+using AperoBoxApi.Infrastructure;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -82,6 +83,8 @@ namespace AperoBoxApi.Controllers
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            utilisateurDTO.MotDePasse = Bcrypt.HashPassword(utilisateurDTO.MotDePasse);
             Utilisateur utilisateur = mapper.Map<Utilisateur>(utilisateurDTO);
             utilisateur = await utilisateurDAO.ajouterUtilisateur(utilisateur);
             return Created($"api/Utilisateur/{utilisateur.Id}", mapper.Map<UtilisateurDTO>(utilisateur));
@@ -90,7 +93,7 @@ namespace AperoBoxApi.Controllers
         [HttpPut("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-        public async Task<IActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
+        public async Task<ActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
