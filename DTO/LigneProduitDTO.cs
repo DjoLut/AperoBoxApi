@@ -7,9 +7,9 @@ namespace AperoBoxApi.DTO
     public class LigneProduitDTO
     {
         public decimal Id { get; set; }
-        public decimal? Quantite { get; set; }
-        public decimal? Box { get; set; }
-        public decimal? Produit { get; set; }
+        public decimal Quantite { get; set; }
+        public decimal Box { get; set; }
+        public decimal Produit { get; set; }
         public byte[] RowVersion { get; set; }
     }
 }

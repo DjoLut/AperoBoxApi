@@ -20,12 +20,26 @@ namespace AperoBoxApi.Controllers
     {
         private readonly AperoBoxApi_dbContext context;
         private readonly LigneProduitDAO ligneProduitDAO;
+        private readonly BoxDAO boxDAO;
         private readonly IMapper mapper;
         public LigneProduitController(AperoBoxApi_dbContext context, IMapper mapper)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.ligneProduitDAO = new LigneProduitDAO(context);
+            this.boxDAO = new BoxDAO(context);
             this.mapper = mapper;
+        }
+
+        [HttpGet("{idBox}")]
+        [AllowAnonymous]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<LigneProduitDTO>))]
+        public async Task<ActionResult<IEnumerable<LigneProduit>>> GetLigneProduitByIdBox(int idBox)
+        {
+            List<LigneProduit> ligneProduits = await ligneProduitDAO.GetLigneProduitByIdBox(idBox);
+            if (ligneProduits == null)
+                return NotFound();
+
+            return Ok(mapper.Map<List<LigneProduitDTO>>(ligneProduits));
         }
 
         [HttpPost]

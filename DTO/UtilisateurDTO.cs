@@ -6,7 +6,6 @@ namespace AperoBoxApi.DTO
 {
     public class UtilisateurDTO
     {
-        [Required]
         public decimal Id { get; set; }
         [Required]
         [StringLength(100)]

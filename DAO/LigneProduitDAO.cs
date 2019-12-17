@@ -25,6 +25,13 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(lp => lp.Id == id);
         }
 
+        public async Task<List<LigneProduit>> GetLigneProduitByIdBox(int id)
+        {
+            return await context.LigneProduit
+                .Where(lp => lp.Box == id)
+                .ToListAsync();
+        }
+
         public async Task<LigneProduit> AjouterLigneProduit(LigneProduit ligneProduit)
         {
             if (ligneProduit == null)

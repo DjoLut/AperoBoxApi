@@ -42,7 +42,7 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet("id")]
-        [Authorize(Roles = Constants.Roles.Admin)]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
         public async Task<ActionResult<Produit>> GetProduitById(int id)
         {
