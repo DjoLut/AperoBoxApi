@@ -41,12 +41,12 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<CommentaireDTO>>(commentaires));
         }
 
-        [HttpGet("/Box/{idBox}")]
-        [Authorize(Roles = Constants.Roles.Admin)]
+        [HttpGet("Box/{idBox}")]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
-        public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentairesByIdBox(int id)
+        public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentairesByIdBox(int idBox)
         {
-            List<Commentaire> commentaires = await commentaireDAO.GetAllCommentairesByIdBox(id);
+            List<Commentaire> commentaires = await commentaireDAO.GetAllCommentairesByIdBox(idBox);
             if (commentaires == null)
                 return NotFound();
 
