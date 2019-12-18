@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AperoBoxApi.Context;
 using AperoBoxApi.Models;
+using AperoBoxApi.ExceptionsPackage;
 
 namespace AperoBoxApi.DAO
 {
@@ -22,6 +23,32 @@ namespace AperoBoxApi.DAO
             return await context.UtilisateurRole
                 .Where(u => u.IdUtilisateur == userId)
                 .ToListAsync();
+        }
+
+        public async Task<UtilisateurRole> GetUtilisateurRoleByIdRoleAndUserId(string idRole, int userId)
+        {
+            return await context.UtilisateurRole
+                .Where(u => u.IdRole == idRole && u.IdUtilisateur == userId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<UtilisateurRole> AjouterUtilisateurRole(UtilisateurRole utilisateurRole)
+        {
+            if (utilisateurRole == null)
+                throw new UtilisateurRoleNotFoundException();
+
+            context.UtilisateurRole.Add(utilisateurRole);
+            await context.SaveChangesAsync();
+            return utilisateurRole;
+        }
+
+        public async Task SuppressionUtilisateurRole(UtilisateurRole utilisateurRole)
+        {
+            if (utilisateurRole == null)
+                throw new UtilisateurRoleNotFoundException();
+
+            context.Remove(utilisateurRole);
+            await context.SaveChangesAsync();
         }
     }
 

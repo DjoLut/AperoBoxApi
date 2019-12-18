@@ -24,6 +24,8 @@ namespace AperoBoxApi.Infrastructure
             CreateMap<BoxDTO, Box>();
             CreateMap<Adresse, AdresseDTO>();
             CreateMap<AdresseDTO, Adresse>();
+            CreateMap<UtilisateurRole, UtilisateurRoleDTO>();
+            CreateMap<UtilisateurRoleDTO, UtilisateurRole>();
         }
     }
 }

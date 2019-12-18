@@ -102,7 +102,7 @@ namespace AperoBoxApi.DAO
             if(utilisateur.UtilisateurRole != null)
             {
                 foreach(var utilisateurRole in utilisateur.UtilisateurRole)
-                    context.Remove(utilisateur);
+                    context.Remove(utilisateurRole);
             }
 
             context.Remove(utilisateur);

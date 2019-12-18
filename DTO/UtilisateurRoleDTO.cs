@@ -9,9 +9,7 @@ namespace AperoBoxApi.DTO
         [Required]
         public string IdRole {get; set;}
         [Required]
-        public int IdUtilisateur {get; set;}
-        [Required]
-        public RoleDTO Role {get; set;}
+        public decimal IdUtilisateur {get; set;}
 
     }
 
