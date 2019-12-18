@@ -34,10 +34,27 @@ namespace AperoBoxApi.DAO
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
+        public async Task<Adresse> GetAdresseByAdresse(Adresse adresse)
+        {
+            return await context.Adresse
+                .Include(a => a.Utilisateur)
+                .Include(a => a.Commande)
+                .Where(a => a.Localite.ToLower() == adresse.Localite.ToLower() 
+                    && a.Numero == adresse.Numero 
+                    && a.Pays.ToLower() == adresse.Pays.ToLower()
+                    && a.CodePostal == adresse.CodePostal
+                    && a.Rue.ToLower() == adresse.Rue.ToLower())
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Adresse> AjouterAdresse(Adresse adresse)
         {
             if (adresse == null)
                 throw new AdresseNotFoundException();
+
+            Adresse adresseExiste = await GetAdresseByAdresse(adresse);
+            if (adresseExiste != null)
+                return adresseExiste;
 
             context.Adresse.Add(adresse);
             await context.SaveChangesAsync();
