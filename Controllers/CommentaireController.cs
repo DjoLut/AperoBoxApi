@@ -41,6 +41,18 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<CommentaireDTO>>(commentaires));
         }
 
+        [HttpGet("/Box/{idBox}")]
+        [Authorize(Roles = Constants.Roles.Admin)]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentairesByIdBox(int id)
+        {
+            List<Commentaire> commentaires = await commentaireDAO.GetAllCommentairesByIdBox(id);
+            if (commentaires == null)
+                return NotFound();
+
+            return Ok(mapper.Map<List<CommentaireDTO>>(commentaires));
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]

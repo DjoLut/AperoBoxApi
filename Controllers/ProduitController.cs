@@ -41,7 +41,7 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<List<ProduitDTO>>(produits));
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
         public async Task<ActionResult<Produit>> GetProduitById(int id)

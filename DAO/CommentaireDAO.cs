@@ -24,6 +24,13 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
 
+        public async Task<List<Commentaire>> GetAllCommentairesByIdBox(int id)
+        {
+            return await context.Commentaire
+                .Where(c => c.Box == id)
+                .ToListAsync();
+        }
+
         public async Task<Commentaire> GetCommentaireById(int id)
         {
             return await context.Commentaire
