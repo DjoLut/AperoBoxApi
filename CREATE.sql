@@ -114,6 +114,9 @@ GO
 ALTER TABLE [apero].[Utilisateur] ADD CONSTRAINT [UNIQUE_Utilisateur_Username] UNIQUE ([Username])
 GO
 
+ALTER TABLE [apero].[Utilisateur] ADD CONSTRAINT [UNIQUE_Utilisateur_Mail] UNIQUE ([Mail])
+GO
+
 /****** Object:  Table [apero].[Commentaire]    Script Date: 23-11-19 19:39:07 ******/
 
 CREATE TABLE [apero].[Commentaire](

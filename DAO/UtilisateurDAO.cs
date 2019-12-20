@@ -62,7 +62,13 @@ namespace AperoBoxApi.DAO
                 throw new UtilisateurNotFoundException();
 
             context.Utilisateur.Add(utilisateur);
+
+            UtilisateurRole utilisateurRole = new UtilisateurRole();
+            UtilisateurRoleDAO utilisateurRoleDAO = new UtilisateurRoleDAO(context);
+
             await context.SaveChangesAsync();
+
+            await utilisateurRoleDAO.AjouterDefaultRole(utilisateur);
             return utilisateur;
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -79,10 +80,17 @@ namespace AperoBoxApi.Controllers
 		[HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(UtilisateurDTO))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterUtilisateur([FromBody]UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            //TEST UNIQUE EMAIL ET UNIQUE USERNAME
+            Utilisateur utilisateurEmail = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Mail);
+            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Username);
+            if(utilisateurEmail != null || utilisateurUsername != null)
+                return BadRequest();
 
             utilisateurDTO.MotDePasse = Bcrypt.HashPassword(utilisateurDTO.MotDePasse);
             Utilisateur utilisateur = mapper.Map<Utilisateur>(utilisateurDTO);
@@ -102,6 +110,12 @@ namespace AperoBoxApi.Controllers
             Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
             if(utilisateur == null)
                 return NotFound();
+
+            Utilisateur utilisateurEmail = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Mail);
+            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Username);
+            if((utilisateurEmail != null && utilisateurEmail.Mail.ToLower().Equals(utilisateur.Mail.ToLower())) 
+            || (utilisateurUsername != null && utilisateurUsername.Username.ToLower().Equals(utilisateur.Username.ToLower())))
+                return BadRequest();
 
             //TEST SI ON VEUT SE MODIFIER SOI MEME ???
             int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);

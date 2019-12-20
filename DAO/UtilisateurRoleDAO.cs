@@ -42,6 +42,16 @@ namespace AperoBoxApi.DAO
             return utilisateurRole;
         }
 
+        public async Task<UtilisateurRole> AjouterDefaultRole(Utilisateur utilisateur)
+        {
+            UtilisateurRole utilisateurRole = new UtilisateurRole();
+            utilisateurRole.IdRole = Constants.Roles.Utilisateur;
+            utilisateurRole.IdUtilisateur = utilisateur.Id;
+            context.Add(utilisateurRole);
+            await context.SaveChangesAsync();
+            return utilisateurRole;
+        }
+
         public async Task SuppressionUtilisateurRole(UtilisateurRole utilisateurRole)
         {
             if (utilisateurRole == null)

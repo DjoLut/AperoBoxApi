@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using AperoBoxApi.ExceptionsPackage;
 
 namespace AperoBoxApi.DTO
 {
@@ -25,7 +26,11 @@ namespace AperoBoxApi.DTO
         [Required]
         [StringLength(100)]
         public string Username { get; set; }
+        [Required]
         public string MotDePasse { get; set; }
+        [Required]
+        [Compare("MotDePasse", ErrorMessage = "Erreur : le mot de passe est différent du mot de passe de confirmation")]
+        public string MotDePasseConf { get; set; }
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
         public virtual ICollection<UtilisateurRoleDTO> UtilisateurRole { get; set; }
