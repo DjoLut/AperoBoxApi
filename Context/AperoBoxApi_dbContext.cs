@@ -298,6 +298,10 @@ namespace AperoBoxApi.Context
                     .HasName("UNIQUE_Utilisateur_Username")
                     .IsUnique();
 
+                entity.HasIndex(e => e.Mail)
+                    .HasName("UNIQUE_Utilisateur_Mail")
+                    .IsUnique();
+
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
                     .HasColumnType("numeric(18, 0)")
