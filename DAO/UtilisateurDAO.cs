@@ -20,13 +20,22 @@ namespace AperoBoxApi.DAO
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<List<Utilisateur>> GetAllUtilisateurs()
+        public async Task<List<Utilisateur>> GetAllUtilisateurs(/*int? pageIndex, int? pageSize*/)
         {
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
                 .Include(u => u.UtilisateurRole)
+                .OrderBy(u => u.Id)
+                //.Skip(pageIndex.Value * pageSize.Value)
+                //.Take(pageSize.Value)
                 .ToListAsync();
+        }
+
+        public async Task<int> getCountUtilisateur()
+        {
+            return await context.Utilisateur
+                .CountAsync();
         }
 
         public async Task<Utilisateur> GetUtilisateurById(int id)

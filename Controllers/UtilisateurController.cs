@@ -33,12 +33,23 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
-        [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
-        public async Task<ActionResult<IEnumerable<Utilisateur>>> GetAllUtilisateurs()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<PagingResult<UtilisateurDTO>>))]
+        public async Task<ActionResult<IEnumerable<PagingResult<Utilisateur>>>> GetAllUtilisateurs(/*int? pageIndex = 0, int? pageSize = 5*/)
         {
-            List<Utilisateur> utilisateurs = await utilisateurDAO.GetAllUtilisateurs();
+            List<Utilisateur> utilisateurs = await utilisateurDAO.GetAllUtilisateurs(/*pageIndex, pageSize*/);
             if (utilisateurs == null)
                 return NotFound();
+
+            //PAGING
+            //int countUtilisateur = await utilisateurDAO.getCountUtilisateur();
+            //PagingResult<UtilisateurDTO> resultPage = new PagingResult<UtilisateurDTO>()
+            //{
+                //Items = mapper.Map<List<UtilisateurDTO>>(utilisateurs),
+                //PageIndex = pageIndex.Value,
+                //PageSize = pageSize.Value,
+                //TotalCount = countUtilisateur
+            //};
+            //return Ok(resultPage);
 
             return Ok(mapper.Map<List<UtilisateurDTO>>(utilisateurs));
         }
