@@ -44,7 +44,7 @@ namespace AperoBoxApi.DAO
                 .Include(u=> u.Commentaire)
                 .Include(u => u.Commande)
                 .Include(u => u.UtilisateurRole)
-                .FirstOrDefaultAsync(u=> u.Username == username);
+                .FirstOrDefaultAsync(u=> u.Username.ToLower().Equals(username.ToLower()));
         }
 
         public async Task<Utilisateur> GetUtilisateurByMail(string mail)
@@ -53,7 +53,7 @@ namespace AperoBoxApi.DAO
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
                 .Include(u => u.UtilisateurRole)
-                .FirstOrDefaultAsync(u => u.Mail == mail);
+                .FirstOrDefaultAsync(u => u.Mail.ToLower().Equals(mail.ToLower()));
         }
 
         public async Task<Utilisateur> AjouterUtilisateur(Utilisateur utilisateur)

@@ -88,7 +88,7 @@ namespace AperoBoxApi.Controllers
 
             //TEST UNIQUE EMAIL ET UNIQUE USERNAME
             Utilisateur utilisateurEmail = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Mail);
-            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Username);
+            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByUsername(utilisateurDTO.Username);
             if(utilisateurEmail != null || utilisateurUsername != null)
                 return BadRequest();
 
@@ -112,9 +112,10 @@ namespace AperoBoxApi.Controllers
                 return NotFound();
 
             Utilisateur utilisateurEmail = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Mail);
-            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByMail(utilisateurDTO.Username);
-            if((utilisateurEmail != null && utilisateurEmail.Mail.ToLower().Equals(utilisateur.Mail.ToLower())) 
-            || (utilisateurUsername != null && utilisateurUsername.Username.ToLower().Equals(utilisateur.Username.ToLower())))
+            if((utilisateurEmail != null && !utilisateurEmail.Mail.ToLower().Equals(utilisateur.Mail.ToLower())))
+                return BadRequest();
+            Utilisateur utilisateurUsername = await utilisateurDAO.GetUtilisateurByUsername(utilisateurDTO.Username);
+            if(utilisateurUsername != null && !utilisateurUsername.Username.ToLower().Equals(utilisateur.Username.ToLower()))
                 return BadRequest();
 
             //TEST SI ON VEUT SE MODIFIER SOI MEME ???
