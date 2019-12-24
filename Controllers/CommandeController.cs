@@ -21,11 +21,13 @@ namespace AperoBoxApi.Controllers
     {
         private readonly AperoBoxApi_dbContext context;
         private readonly CommandeDAO commandeDAO;
+        private readonly UtilisateurDAO utilisateurDAO;
         private readonly IMapper mapper;
         public CommandeController(AperoBoxApi_dbContext context, IMapper mapper)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.commandeDAO = new CommandeDAO(context);
+            this.utilisateurDAO = new UtilisateurDAO(context);
             this.mapper = mapper;
         }
 
@@ -48,6 +50,15 @@ namespace AperoBoxApi.Controllers
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);
+            Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(userId);
+            if (utilisateur == null && !User.IsInRole(Constants.Roles.Utilisateur))
+                return Forbid();
+
+            commandeDTO.Utilisateur = userId;
+            commandeDTO.Adresse = utilisateur.Adresse;
+
             Commande commande = mapper.Map<Commande>(commandeDTO);
             commande = await commandeDAO.AjouterCommande(commande);
             return Created($"api/Commande/{commande.Id}", mapper.Map<CommandeDTO>(commande));

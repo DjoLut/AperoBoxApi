@@ -66,8 +66,9 @@ namespace AperoBoxApi.Controllers
             return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
         }
 
-        /*[HttpGet("{username}")]
+        /*[HttpGet("/username/{username}")]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<ActionResult<Utilisateur>> GetUtilisateurByUsername(string username)
         {
           Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurByUsername(username);
@@ -75,18 +76,7 @@ namespace AperoBoxApi.Controllers
             return NotFound();
 
           return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
-        }
-
-		[HttpGet("{mail}")]
-		[ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
-		public async Task<ActionResult<Utilisateur>> GetUtilisateurByMail(string mail)
-		{
-			Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurByMail(mail);
-			if (utilisateur == null)
-			  return NotFound();
-
-			return Ok(mapper.Map<UtilisateurDTO>(utilisateur));
-		}*/
+        }*/
 
 		[HttpPost]
         [AllowAnonymous]

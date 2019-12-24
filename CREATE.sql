@@ -145,7 +145,7 @@ GO
 CREATE TABLE [apero].[Commande](
 	[ID] [numeric](18, 0) NOT NULL IDENTITY(1,1),
     [DateCreation] [date] NOT NULL,
-    [Promotion] [numeric](18,2) NOT NULL,
+    [Promotion] [numeric](18,2),
     [Utilisateur] [numeric](18, 0) NOT NULL,
     [Adresse] [numeric](18, 0) NOT NULL,
 	RowVersion timestamp
