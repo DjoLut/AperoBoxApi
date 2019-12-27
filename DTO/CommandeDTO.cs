@@ -11,7 +11,7 @@ namespace AperoBoxApi.DTO
         [DataType(DataType.Date)]
         public DateTime DateCreation { get; set; }
         public decimal Utilisateur { get; set; }
-        public decimal Promotion { get; set; }
+        public decimal? Promotion { get; set; }
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
         public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }

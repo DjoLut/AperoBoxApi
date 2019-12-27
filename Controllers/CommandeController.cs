@@ -58,6 +58,8 @@ namespace AperoBoxApi.Controllers
 
             commandeDTO.Utilisateur = userId;
             commandeDTO.Adresse = utilisateur.Adresse;
+            if (commandeDTO.Promotion == 0)
+                commandeDTO.Promotion = null;
 
             Commande commande = mapper.Map<Commande>(commandeDTO);
             commande = await commandeDAO.AjouterCommande(commande);
