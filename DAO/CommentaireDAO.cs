@@ -21,6 +21,7 @@ namespace AperoBoxApi.DAO
         public async Task<List<Commentaire>> GetAllCommentaires()
         {
             return await context.Commentaire
+                .OrderByDescending(c => c.DateCreation)
                 .ToListAsync();
         }
 
@@ -28,6 +29,7 @@ namespace AperoBoxApi.DAO
         {
             return await context.Commentaire
                 .Where(c => c.Box == id)
+                .OrderByDescending(c => c.DateCreation)
                 .ToListAsync();
         }
 
