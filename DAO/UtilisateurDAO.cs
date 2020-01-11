@@ -25,6 +25,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .ThenInclude(l => l.LigneCommande)
                 .Include(u => u.UtilisateurRole)
                 .OrderBy(u => u.Id)
                 //.Skip(pageIndex.Value * pageSize.Value)
@@ -32,7 +33,7 @@ namespace AperoBoxApi.DAO
                 .ToListAsync();
         }
 
-        public async Task<int> getCountUtilisateur()
+        public async Task<int> GetCountUtilisateur()
         {
             return await context.Utilisateur
                 .CountAsync();
@@ -43,6 +44,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .ThenInclude(l => l.LigneCommande)
                 .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
@@ -52,6 +54,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u=> u.Commentaire)
                 .Include(u => u.Commande)
+                .ThenInclude(l => l.LigneCommande)
                 .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u=> u.Username.ToLower().Equals(username.ToLower()));
         }
@@ -61,6 +64,7 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
+                .ThenInclude(l => l.LigneCommande)
                 .Include(u => u.UtilisateurRole)
                 .FirstOrDefaultAsync(u => u.Mail.ToLower().Equals(mail.ToLower()));
         }
@@ -72,7 +76,6 @@ namespace AperoBoxApi.DAO
 
             context.Utilisateur.Add(utilisateur);
 
-            UtilisateurRole utilisateurRole = new UtilisateurRole();
             UtilisateurRoleDAO utilisateurRoleDAO = new UtilisateurRoleDAO(context);
 
             await context.SaveChangesAsync();
@@ -105,7 +108,14 @@ namespace AperoBoxApi.DAO
             if(utilisateur.Commande != null)
             {
                 foreach(var commande in utilisateur.Commande)
+                {
+                    if(commande.LigneCommande != null)
+                    {
+                        foreach (var lc in commande.LigneCommande)
+                            context.Remove(lc);
+                    }
                     context.Remove(commande);
+                }
             }
 
             if(utilisateur.Commentaire != null)
