@@ -14,4 +14,4 @@ Nous recommandons l'utilisation de Visual Studio Code.
 4. Lancez la commande "git clone https://github.com/etu32766/AperoBoxApi" et déplacez-vous vers dans le dossier src avec "cd Src"
 5. Si Visual Studio Code vous propose de faire un "restore" alors acceptez, s'il ne le propose pas automatiquement alors utilisez la commande "dotnet restore"
 6. Compilez le projet avec la commande "dotnet build"
-7. Puis lancez le projet avec la commande "dotnet run" et utilisez votre testeur d'api préféré (Exemple : Postman)
+7. Puis lancez le projet avec la commande "dotnet run" et utilisez votre testeur d'api préféré sur l'url suivante : https://localhost:5001/api/XXXX (Exemple : Postman)
