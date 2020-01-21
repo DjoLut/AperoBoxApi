@@ -33,6 +33,7 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(JwtToken), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Login([FromBody] LoginModelDTO loginModelDTO)
         {
             if (!ModelState.IsValid)

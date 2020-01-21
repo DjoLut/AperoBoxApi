@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,6 +35,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentaires()
         {
             List<Commentaire> commentaires = await commentaireDAO.GetAllCommentaires();
@@ -46,6 +49,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet("Box/{idBox}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Commentaire>>> GetAllCommentairesByIdBox(int idBox)
         {
             List<Commentaire> commentaires = await commentaireDAO.GetAllCommentairesByIdBox(idBox);
@@ -58,6 +62,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommentaireDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Commentaire>> GetCommentaireById(int id)
         {
             Commentaire commentaire = await commentaireDAO.GetCommentaireById(id);
@@ -70,6 +76,9 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)]
         [ProducesResponseType(201, Type = typeof(CommentaireDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         public async Task<ActionResult> AjouterCommentaire([FromBody]CommentaireDTO commentaireDTO)
         {
             if(!ModelState.IsValid)
@@ -90,6 +99,8 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(CommentaireDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> SuppressionCommentaire(int id) 
         {
             Commentaire commentaire = await commentaireDAO.GetCommentaireById(id);

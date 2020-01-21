@@ -32,7 +32,9 @@ namespace AperoBoxApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Constants.Roles.Admin)] 
+        [Authorize(Roles = Constants.Roles.Admin)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PagingResult<UtilisateurDTO>>))]
         public async Task<ActionResult<IEnumerable<PagingResult<Utilisateur>>>> GetAllUtilisateurs(int? pageIndex = 0, int? pageSize = 5)
         {
@@ -55,6 +57,9 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         public async Task<ActionResult<Utilisateur>> GetUtilisateurById(int id)
         {
             Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);
@@ -89,6 +94,9 @@ namespace AperoBoxApi.Controllers
         [HttpPut("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> ModifierUtilisateur(int id, [FromBody] UtilisateurDTO utilisateurDTO)
         {
             if(!ModelState.IsValid)
@@ -106,10 +114,12 @@ namespace AperoBoxApi.Controllers
             if(utilisateurUsername != null && !utilisateurUsername.Username.ToLower().Equals(utilisateur.Username.ToLower()))
                 return BadRequest();
 
-            //TEST SI ON VEUT SE MODIFIER SOI MEME ???
+            //TEST ADMIN OU MODIFIE SON PROFIL
             int userId = int.Parse(User.Claims.First(c => c.Type == PrivateClaims.UserId).Value);
-            if (!User.IsInRole(Constants.Roles.Admin))
-                return Forbid();
+            if(!User.IsInRole(Constants.Roles.Admin)) {
+                if (userId != utilisateur.Id)
+                    return Forbid();
+            }
 
             await utilisateurDAO.ModifierUtilisateur(utilisateur, utilisateurDTO);
             return Ok(utilisateurDTO);
@@ -118,6 +128,8 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> SuppressionUtilisateur(int id) 
         {
             Utilisateur utilisateur = await utilisateurDAO.GetUtilisateurById(id);

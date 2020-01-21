@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PagingResult<BoxDTO>>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<PagingResult<Box>>>> GetAllBoxes(int? pageIndex = 0, int? pageSize = 5)
         {
             List<Box> boxes = await boxDAO.GetAllBoxes(pageIndex, pageSize);
@@ -52,6 +54,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Box>> GetBoxById(int id)
         {
             Box box = await boxDAO.GetBoxById(id);
@@ -64,6 +67,7 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(BoxDTO))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterBox([FromBody] BoxDTO boxDTO)
         {
             if(!ModelState.IsValid)
@@ -76,6 +80,10 @@ namespace AperoBoxApi.Controllers
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> ModifierBox([FromBody] BoxDTO boxDTO)
         {
             if(!ModelState.IsValid)
@@ -96,6 +104,8 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(BoxDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> SuppressionBox(int id) 
         {
             Box box = await boxDAO.GetBoxById(id);

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{idUser}")]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurRoleDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<UtilisateurRole>>> GetUtilisateurRolesByUserId(int idUser)
         {
             List<UtilisateurRole> utilisateurRoles = await utilisateurRoleDAO.GetUtilisateurRoleByUserId(idUser);
@@ -42,6 +45,8 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(UtilisateurRoleDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterUtilisateurRole([FromBody]UtilisateurRoleDTO utilisateurRoleDTO)
         {
             if (!ModelState.IsValid)
@@ -56,6 +61,8 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{idRole}/{userId}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(UtilisateurRoleDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> SuppressionUtilisateurRole(string idRole, int userId)
         {
             UtilisateurRole utilisateurRole = await utilisateurRoleDAO.GetUtilisateurRoleByIdRoleAndUserId(idRole, userId);

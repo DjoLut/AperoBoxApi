@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AperoBoxApi.Models;
@@ -31,6 +32,8 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneCommandeDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterLigneCommande([FromBody]LigneCommandeDTO ligneCommandeDTO)
         {
             if(!ModelState.IsValid)
@@ -43,6 +46,9 @@ namespace AperoBoxApi.Controllers
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneCommandeDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> ModifierLigneCommande([FromBody] LigneCommandeDTO ligneCommandeDTO)
         {
             if(!ModelState.IsValid)

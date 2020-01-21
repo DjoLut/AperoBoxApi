@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<ProduitDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Produit>>> GetAllProduits()
         {
             List<Produit> produits = await produitDAO.GetAllProduits();
@@ -44,6 +46,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(ProduitDTO))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Produit>> GetProduitById(int id)
         {
             Produit produit = await produitDAO.GetProduitById(id);
@@ -56,6 +59,8 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(201, Type = typeof(ProduitDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterProduit([FromBody]ProduitDTO produitDTO)
         {
             if(!ModelState.IsValid)

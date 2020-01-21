@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,6 +35,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<CommandeDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Commande>>> GetAllCommandes()
         {
             List<Commande> commandes = await commandeDAO.GetAllCommandes();
@@ -46,6 +49,9 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)]
         [ProducesResponseType(201, Type = typeof(CommandeDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         public async Task<ActionResult> AjouterCommande([FromBody] CommandeDTO commandeDTO)
         {
             if(!ModelState.IsValid)

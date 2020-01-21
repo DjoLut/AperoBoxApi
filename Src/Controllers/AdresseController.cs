@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Adresse>>> GetAllAdresses()
         {
             List<Adresse> adresses = await adresseDAO.GetAllAdresses();
@@ -44,6 +47,8 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(IEnumerable<AdresseDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Adresse>> GetAdresseById(int id)
         {
             Adresse adresse = await adresseDAO.GetAdresseById(id);
@@ -56,6 +61,7 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(201, Type = typeof(AdresseDTO))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterAdresse([FromBody]AdresseDTO adresseDTO)
         {
             if(!ModelState.IsValid)

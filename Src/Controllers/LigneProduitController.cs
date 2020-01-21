@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AperoBoxApi.Models;
@@ -33,6 +34,7 @@ namespace AperoBoxApi.Controllers
         [HttpGet("{idBox}")]
         [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(IEnumerable<LigneProduitDTO>))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<LigneProduit>>> GetLigneProduitByIdBox(int idBox)
         {
             List<LigneProduit> ligneProduits = await ligneProduitDAO.GetLigneProduitByIdBox(idBox);
@@ -45,6 +47,8 @@ namespace AperoBoxApi.Controllers
         [HttpPost]
         [Authorize(Roles = Constants.Roles.Utilisateur)] 
         [ProducesResponseType(201, Type = typeof(LigneProduitDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> AjouterLigneProduit([FromBody]LigneProduitDTO ligneProduitDTO)
         {
             if(!ModelState.IsValid)
@@ -57,6 +61,9 @@ namespace AperoBoxApi.Controllers
         [HttpPut]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult> ModifierLigneProduit([FromBody] LigneProduitDTO ligneProduitDTO)
         {
             if(!ModelState.IsValid)
@@ -75,6 +82,8 @@ namespace AperoBoxApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = Constants.Roles.Admin)]
         [ProducesResponseType(200, Type = typeof(LigneProduitDTO))]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> SuppressionLigneProduit(int id)
         {
             LigneProduit ligneProduit = await ligneProduitDAO.GetLigneProduitById(id);
