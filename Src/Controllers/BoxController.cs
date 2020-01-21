@@ -31,14 +31,22 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<BoxDTO>))]
-        public async Task<ActionResult<IEnumerable<Box>>> GetAllBoxes()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<PagingResult<BoxDTO>>))]
+        public async Task<ActionResult<IEnumerable<PagingResult<Box>>>> GetAllBoxes(int? pageIndex = 0, int? pageSize = 5)
         {
-            List<Box> boxes = await boxDAO.GetAllBoxes();
+            List<Box> boxes = await boxDAO.GetAllBoxes(pageIndex, pageSize);
             if (boxes == null)
                 return NotFound();
 
-            return Ok(mapper.Map<List<BoxDTO>>(boxes));
+            int countBox = await boxDAO.GetCountBox();
+            PagingResult<BoxDTO> resultPage = new PagingResult<BoxDTO>()
+            {
+                Items = mapper.Map<List<BoxDTO>>(boxes),
+                PageIndex = pageIndex.Value,
+                PageSize = pageSize.Value,
+                TotalCount = countBox
+            };
+            return Ok(resultPage);
         }
 
         [HttpGet("{id}")]

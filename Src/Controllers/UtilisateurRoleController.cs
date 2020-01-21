@@ -47,6 +47,7 @@ namespace AperoBoxApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            utilisateurRoleDTO.IdRole = utilisateurRoleDTO.IdRole.ToLower();
             UtilisateurRole utilisateurRole = mapper.Map<UtilisateurRole>(utilisateurRoleDTO);
             utilisateurRole = await utilisateurRoleDAO.AjouterUtilisateurRole(utilisateurRole);
             return Created($"api/UtilisateurRole", mapper.Map<UtilisateurRoleDTO>(utilisateurRole));

@@ -33,9 +33,7 @@ namespace AperoBoxApi.Controllers
 
         [HttpGet]
         [Authorize(Roles = Constants.Roles.Admin)] 
-        //[ProducesResponseType(200, Type = typeof(IEnumerable<UtilisateurDTO>))]
         [ProducesResponseType(200, Type = typeof(IEnumerable<PagingResult<UtilisateurDTO>>))]
-        //public async Task<ActionResult<IEnumerable<Utilisateur>>> GetAllUtilisateurs()
         public async Task<ActionResult<IEnumerable<PagingResult<Utilisateur>>>> GetAllUtilisateurs(int? pageIndex = 0, int? pageSize = 5)
         {
             List<Utilisateur> utilisateurs = await utilisateurDAO.GetAllUtilisateurs(pageIndex, pageSize);
@@ -52,8 +50,6 @@ namespace AperoBoxApi.Controllers
                 TotalCount = countUtilisateur
             };
             return Ok(resultPage);
-
-            //return Ok(mapper.Map<List<UtilisateurDTO>>(utilisateurs));
         }
 
         [HttpGet("{id}")]
@@ -84,6 +80,7 @@ namespace AperoBoxApi.Controllers
                 return BadRequest();
 
             utilisateurDTO.MotDePasse = Bcrypt.HashPassword(utilisateurDTO.MotDePasse);
+            utilisateurDTO.MotDePasseConf = Bcrypt.HashPassword(utilisateurDTO.MotDePasseConf);
             Utilisateur utilisateur = mapper.Map<Utilisateur>(utilisateurDTO);
             utilisateur = await utilisateurDAO.AjouterUtilisateur(utilisateur);
             return Created($"api/Utilisateur/{utilisateur.Id}", mapper.Map<UtilisateurDTO>(utilisateur));
