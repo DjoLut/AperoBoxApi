@@ -25,7 +25,6 @@ namespace AperoBoxApi.DAO
             return await context.Utilisateur
                 .Include(u => u.Commentaire)
                 .Include(u => u.Commande)
-                .ThenInclude(l => l.LigneCommande)
                 .Include(u => u.UtilisateurRole)
                 .OrderBy(u => u.Id)
                 .Skip(pageIndex.Value * pageSize.Value)
