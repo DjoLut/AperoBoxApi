@@ -14,6 +14,7 @@ namespace AperoBoxApi.DTO
         public decimal? Promotion { get; set; }
         public decimal Adresse { get; set; }
         public byte[] RowVersion { get; set; }
+        [Required]
         public virtual ICollection<LigneCommandeDTO> LigneCommande { get; set; }
     }
 }

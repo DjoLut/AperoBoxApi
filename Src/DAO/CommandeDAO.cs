@@ -32,6 +32,13 @@ namespace AperoBoxApi.DAO
 
             context.Commande.Add(commande);
             await context.SaveChangesAsync();
+
+            LigneCommandeDAO ligneCommandeDAO = new LigneCommandeDAO(context);
+            foreach(var ligneCommande in commande.LigneCommande)
+            {
+                await ligneCommandeDAO.AjouterLigneCommande(ligneCommande);
+            }
+
             return commande;
         }
     }
